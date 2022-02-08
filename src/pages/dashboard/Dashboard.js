@@ -28,7 +28,7 @@ function Dashboard() {
       <BrowserRouter>
         <nav className="navbar">
           <div className="navbar-container">
-            <a href="#" className="brand-title">
+            <a href="/" className="brand-title">
               Books
             </a>
             <button
@@ -58,7 +58,7 @@ function Dashboard() {
                     className="nav-link"
                     to="/author"
                   >
-                    Author
+                    Authors
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -68,7 +68,7 @@ function Dashboard() {
                     className="nav-link"
                     to="/category"
                   >
-                    Category
+                    Categorys
                   </NavLink>
                 </li>
               </ul>
@@ -95,26 +95,34 @@ function AllRoutes({ hideMenu }) {
 
   return (
     <Switch>
-      <Route
-        path="/about"
-        component={() => {
-          return <Book />;
-        }}
-      ></Route>
-      <Route
-        path="/contact"
-        component={() => {
-          return <Author />;
-        }}
-      ></Route>
-      <Route
-        path="/"
-        component={() => {
-          return <Category />;
-        }}
-      ></Route>
+      <Route path="/category" component={Categorys}></Route>
+      <Route path="/author" component={Authors}></Route>
+      <Route path="/" component={Books}></Route>
     </Switch>
   );
 }
 
+function Books() {
+  return (
+    <>
+      <Book />
+    </>
+  );
+}
+
+function Authors() {
+  return (
+    <>
+      <Author />
+    </>
+  );
+}
+
+function Categorys() {
+  return (
+    <>
+      <Category />
+    </>
+  );
+}
 export default Dashboard;

@@ -60,6 +60,9 @@ nav a.is-active {
   .navbar-toggler {
     display: none;
   }
+  nav a.is-active {
+    color: maroon;
+  }
 }
 
 @media only screen and (max-width: 992px) {
