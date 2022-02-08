@@ -1,32 +1,119 @@
-import "./dasboard.css";
 import Book from "../book/Book";
-import Category from "../category/Category";
 import Author from "../author/Author";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Category from "../category/Category";
+import React, { useRef, useEffect } from "react";
+import {
+  BrowserRouter,
+  NavLink,
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import "./dashboard.css";
+
 function Dashboard() {
+  const navbarLinks = useRef(null);
+  const handleNavbarButton = (e) => {
+    navbarLinks.current.classList.toggle("menu-collapse");
+  };
+
+  const hideNavMenu = () => {
+    if (!navbarLinks.current.classList.contains("menu-collapse")) {
+      navbarLinks.current.classList.add("menu-collapse");
+    }
+  };
+
   return (
-    <div className="dashboard">
-      <Router>
-        <div>
-          <ul>
-            <li>
-              <Link to="/">Book</Link>
-            </li>
-            <li>
-              <Link to="/category">Category</Link>
-            </li>
-            <li>
-              <Link to="/author">Author</Link>
-            </li>
-          </ul>
+    <div className="App">
+      <BrowserRouter>
+        <nav className="navbar">
+          <div className="navbar-container">
+            <a href="#" className="brand-title">
+              Books
+            </a>
+            <button
+              onClick={(e) => {
+                handleNavbarButton(e);
+              }}
+              className="navbar-toggler"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div ref={navbarLinks} className="navbar-links menu-collapse">
+              <ul className="links-list">
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="is-active"
+                    exact={true}
+                    className="nav-link"
+                    to="/"
+                  >
+                    Books
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="is-active"
+                    exact={true}
+                    className="nav-link"
+                    to="/author"
+                  >
+                    Author
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    activeClassName="is-active"
+                    exact={true}
+                    className="nav-link"
+                    to="/category"
+                  >
+                    Category
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div className="container">
+          <AllRoutes
+            hideMenu={() => {
+              hideNavMenu();
+            }}
+          ></AllRoutes>
         </div>
-        <Routes>
-          <Route exact path="/" element={<Book />}></Route>
-          <Route path="/category" element={<Category />}></Route>
-          <Route path="/author" element={<Author />}></Route>
-        </Routes>
-      </Router>
+      </BrowserRouter>
     </div>
+  );
+}
+
+function AllRoutes({ hideMenu }) {
+  let location = useLocation();
+  useEffect(() => {
+    hideMenu();
+  }, [location]);
+
+  return (
+    <Switch>
+      <Route
+        path="/about"
+        component={() => {
+          return <Book />;
+        }}
+      ></Route>
+      <Route
+        path="/contact"
+        component={() => {
+          return <Author />;
+        }}
+      ></Route>
+      <Route
+        path="/"
+        component={() => {
+          return <Category />;
+        }}
+      ></Route>
+    </Switch>
   );
 }
 
