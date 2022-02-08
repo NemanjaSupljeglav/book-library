@@ -100,19 +100,19 @@ function AllRoutes({ hideMenu }) {
         component={() => {
           return <Book />;
         }}
-      ></Route>
+      />
       <Route
         path="/author"
         component={() => {
           return <Author />;
         }}
-      ></Route>
+      />
       <Route
         path="/"
         component={() => {
           return <Category />;
         }}
-      ></Route>
+      />
     </Switch>
   );
 }
