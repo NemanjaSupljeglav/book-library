@@ -80,7 +80,7 @@ function Dashboard() {
             hideMenu={() => {
               hideNavMenu();
             }}
-          ></AllRoutes>
+          />
         </div>
       </BrowserRouter>
     </div>
