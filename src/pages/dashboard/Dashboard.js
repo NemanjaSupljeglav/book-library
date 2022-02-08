@@ -95,34 +95,26 @@ function AllRoutes({ hideMenu }) {
 
   return (
     <Switch>
-      <Route path="/category" component={Categorys}></Route>
-      <Route path="/author" component={Authors}></Route>
-      <Route path="/" component={Books}></Route>
+      <Route
+        path="/category"
+        component={() => {
+          return <Book />;
+        }}
+      ></Route>
+      <Route
+        path="/author"
+        component={() => {
+          return <Author />;
+        }}
+      ></Route>
+      <Route
+        path="/"
+        component={() => {
+          return <Category />;
+        }}
+      ></Route>
     </Switch>
   );
 }
 
-function Books() {
-  return (
-    <>
-      <Book />
-    </>
-  );
-}
-
-function Authors() {
-  return (
-    <>
-      <Author />
-    </>
-  );
-}
-
-function Categorys() {
-  return (
-    <>
-      <Category />
-    </>
-  );
-}
 export default Dashboard;
