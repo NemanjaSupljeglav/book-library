@@ -1,5 +1,5 @@
 nav.navbar {
-  background: whitesmoke;
+  background: rgb(231, 231, 231);
 }
 
 .navbar-container {
@@ -44,7 +44,7 @@ li.nav-item {
 
 nav a {
   text-decoration: none;
-  color: #333;
+  color: rgb(148, 148, 148);
 }
 
 nav a.is-active {
