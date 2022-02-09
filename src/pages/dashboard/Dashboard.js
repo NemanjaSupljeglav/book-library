@@ -1,7 +1,10 @@
 import Book from "../book/Book";
 import Author from "../author/Author";
 import Category from "../category/Category";
+import Welcome from "../welcome/Welcome";
 import React, { useRef, useEffect } from "react";
+
+import { FaBook } from "react-icons/fa";
 import {
   BrowserRouter,
   NavLink,
@@ -29,7 +32,7 @@ function Dashboard() {
         <nav className="navbar">
           <div className="navbar-container">
             <a href="/" className="brand-title">
-              Books
+              <FaBook size="2em" />
             </a>
             <button
               onClick={(e) => {
@@ -46,7 +49,7 @@ function Dashboard() {
                     activeClassName="is-active"
                     exact={true}
                     className="nav-link"
-                    to="/"
+                    to="/book"
                   >
                     Books
                   </NavLink>
@@ -70,6 +73,12 @@ function Dashboard() {
                   >
                     Categorys
                   </NavLink>
+                  <NavLink
+                    activeClassName="is-active"
+                    exact={true}
+                    className="nav-link"
+                    to="/"
+                  />
                 </li>
               </ul>
             </div>
@@ -98,7 +107,7 @@ function AllRoutes({ hideMenu }) {
       <Route
         path="/category"
         component={() => {
-          return <Book />;
+          return <Category />;
         }}
       />
       <Route
@@ -108,9 +117,15 @@ function AllRoutes({ hideMenu }) {
         }}
       />
       <Route
+        path="/book"
+        component={() => {
+          return <Book />;
+        }}
+      />
+      <Route
         path="/"
         component={() => {
-          return <Category />;
+          return <Welcome />;
         }}
       />
     </Switch>

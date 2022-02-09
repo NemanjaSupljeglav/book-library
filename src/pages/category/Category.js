@@ -8,6 +8,7 @@ function Category() {
   return (
     <div className="category-wrapper">
       <h1>Hello category </h1>
+
       <div>
         <button
           aria-label="Increment value"
