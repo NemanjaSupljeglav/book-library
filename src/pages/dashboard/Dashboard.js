@@ -76,7 +76,7 @@ function Dashboard() {
                   <NavLink
                     activeClassName="is-active"
                     exact={true}
-                    className="nav-link"
+                    className="nav-linkk"
                     to="/"
                   />
                 </li>

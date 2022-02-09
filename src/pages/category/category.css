@@ -1,5 +1,7 @@
 .category-wrapper {
   width: 100vh;
   height: 100vh;
-  background: palegreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
