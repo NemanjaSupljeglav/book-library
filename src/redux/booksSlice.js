@@ -15,31 +15,27 @@ const GET_ALL_BOOKS_FLR = "auth/GET_ALL_BOOKS_FLR";
 //ACTIONS
 
 export const getAllBooks = () => async (dispatch) => {
-  console.log("doslo u getAllBooks");
   dispatch({ type: GET_ALL_BOOKS_REQ });
 
-  //const response = await postFunc("importporeznaHeadMip/pagination", body);
-  /*
-  const response = () => {
-    console.log("uslo u response");
+  const getFunc = async () => {
     return axios
-      .get("http://127.0.0.1:5000/book")
+      .get(`http://127.0.0.1:5000/book`)
       .then((response) => {
         //checkToken();
-        console.log(response);
+
         return response.data;
       })
       .catch((error) => {
+        console.log("dode u catch");
         //checkToken();
-        console.log(error);
-        //return NotificationManager.error(error.message);
+        return console.log(error.message);
       });
   };
-  */
-  //fetch proba
-  const response = await fetch("http://127.0.0.1:5000/book").json();
-  //fetch proba
 
+  const response = getFunc();
+  console.log("response");
+  console.log(response);
+  console.log("response");
   if (response.status === 200) {
     console.log(response);
     dispatch({
