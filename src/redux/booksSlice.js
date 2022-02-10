@@ -33,9 +33,7 @@ export const getAllBooks = () => async (dispatch) => {
   };
 
   const response = getFunc();
-  console.log("response");
-  console.log(response);
-  console.log("response");
+
   if (response.status === 200) {
     console.log(response);
     dispatch({
