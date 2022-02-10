@@ -14,20 +14,16 @@ const GET_ALL_BOOKS_FLR = "auth/GET_ALL_BOOKS_FLR";
 
 //ACTIONS
 
-export const getAllBooks = (body) => async (dispatch) => {
+export const getAllBooks = () => async (dispatch) => {
   console.log("doslo u getAllBooks");
   dispatch({ type: GET_ALL_BOOKS_REQ });
 
   //const response = await postFunc("importporeznaHeadMip/pagination", body);
+  /*
   const response = () => {
     console.log("uslo u response");
     return axios
-      .get("http://127.0.0.1:5000/book", {
-        method: "GET",
-        headers: {
-          //...authHeader(),
-        },
-      })
+      .get("http://127.0.0.1:5000/book")
       .then((response) => {
         //checkToken();
         console.log(response);
@@ -39,20 +35,23 @@ export const getAllBooks = (body) => async (dispatch) => {
         //return NotificationManager.error(error.message);
       });
   };
-  console.log("response.status.errorCode");
-  console.log(response.status.errorCode);
+  */
+  //fetch proba
+  const response = await fetch("http://127.0.0.1:5000/book").json();
+  //fetch proba
 
-  if (response.status.errorCode === 200) {
+  if (response.status === 200) {
+    console.log(response);
     dispatch({
       type: GET_ALL_BOOKS_SCS,
 
       payload: { data: response.data, total: response.total },
     });
-    console.log(response.status.description);
+    console.log(response.data.status);
     //NotificationManager.success(i18n.t(response.status.description));
   } else {
     dispatch({ type: GET_ALL_BOOKS_FLR });
-    console.log(response.status.description);
+    console.log(response.status);
     //NotificationManager.error(i18n.t(response.status.description));
   }
 };
