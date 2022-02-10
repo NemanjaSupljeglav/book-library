@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
-//import getAllBook from "../../redux/booksSlice";
+import { getAllBooks } from "../../redux/booksSlice";
 function Book() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllBooks());
+  }, []);
 
   return (
     <div className="book-wrapper">
