@@ -126,6 +126,6 @@ export default function reducer(state = INIT_STATE, action = {}) {
 
 
 
-   
+    }
 
 }
