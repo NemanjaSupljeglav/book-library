@@ -18,13 +18,16 @@ export const getAllBooks = () => async (dispatch) => {
   dispatch({ type: GET_ALL_BOOKS_REQ });
 
   const getFunc = async () => {
+    console.log("Doslo u gewtFun");
     return axios
       .get(`http://127.0.0.1:5000/book`)
+
       .then((response) => {
         //checkToken();
-
+        console.log(response.data);
         return response.data;
       })
+
       .catch((error) => {
         console.log("dode u catch");
         //checkToken();
@@ -33,9 +36,11 @@ export const getAllBooks = () => async (dispatch) => {
   };
 
   const response = getFunc();
-
+  console.log("response");
+  console.log(response);
+  console.log("response");
   if (response.status === 200) {
-    console.log(response);
+    console.log("succes");
     dispatch({
       type: GET_ALL_BOOKS_SCS,
 
