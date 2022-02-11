@@ -1,7 +1,18 @@
 .book-wrapper {
-  width: 100vh;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 15px;
+}
+.row-edit-table {
+  cursor: pointer;
+}
+.row-edit-table:hover {
+  transform: scale(1.5);
+  -moz-box-shadow: 1px 0px 26px 1px rgba(0, 0, 0, 0.75);
+  transition-duration: 0.4s;
+  color: maroon;
+  box-shadow: 2px 2px 20px -5px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 2px 2px 20px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 20px -5px rgba(0, 0, 0, 0.75);
+}
+.published {
+  margin-left: 25px;
 }
