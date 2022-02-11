@@ -35,7 +35,7 @@ export const getAllBooks = () => async (dispatch) => {
       });
   };
 
-  const response = getFunc();
+  const response = await getFunc();
   console.log("response");
   console.log(response);
   console.log("response");
