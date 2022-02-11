@@ -18,7 +18,6 @@ export const getAllBooks = () => async (dispatch) => {
   dispatch({ type: GET_ALL_BOOKS_REQ });
 
   const getFunc = async () => {
-    console.log("Doslo u gewtFun");
     return axios
       .get(`http://127.0.0.1:5000/book`)
 
@@ -29,21 +28,16 @@ export const getAllBooks = () => async (dispatch) => {
       })
 
       .catch((error) => {
-        console.log("dode u catch");
         //checkToken();
         return console.log(error.message);
       });
   };
 
   const response = await getFunc();
-  console.log("response");
-  console.log(response);
-  console.log("response");
+
   if (response.status === 200) {
-    console.log("succes");
     dispatch({
       type: GET_ALL_BOOKS_SCS,
-
       payload: { data: response.data, total: response.total },
     });
     console.log(response.data.status);
@@ -63,13 +57,14 @@ export const getAllBooks = () => async (dispatch) => {
 
 const INIT_STATE = {
   loading: false,
-
   data: [],
+  total: [],
 };
 
-export default function reducer(state = INIT_STATE, action = {}) {
+export function bookReducer(state = INIT_STATE, action = {}) {
   switch (action.type) {
     case GET_ALL_BOOKS_REQ:
+    default:
       return {
         ...state,
 
