@@ -8,12 +8,12 @@ import Icon from "@material-ui/core/Icon";
 // import { makeStyles } from "@material-ui/core/styles";​
 // Router
 
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 // const useStyles = makeStyles(theme => ({}));​
 const Button = (props) => {
   // const classes = useStyles();
-  const history = useNavigate();
+  //const history = useNavigate();
   //const { t } = useTranslation();
 
   const {
@@ -38,12 +38,13 @@ const Button = (props) => {
       disabled={disabled}
       variant={variant}
       color={color}
-      onClick={goTo ? () => history.push(goTo) : onClick}
+      onClick={onClick}
       endIcon={icon && <Icon>{icon}</Icon>}
       startIcon={startIcon && <Icon>{startIcon}</Icon>}
       fullWidth={fullWidth}
       type={type}
       datacy={datacy}
+      disabled={disabled}
       style={customStyle}
       classes={classes}
       size={size}
@@ -56,9 +57,7 @@ const Button = (props) => {
 Button.defaultProps = {
   variant: "contained",
   label: "Label",
-  onClick: () => {
-    console.log("Ouch!");
-  },
+  onClick: () => console.log("Ouch!"),
   color: "primary",
   goTo: "",
   icon: "",

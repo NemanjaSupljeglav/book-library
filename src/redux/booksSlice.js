@@ -4,6 +4,8 @@ import axios from "axios";
 
 //import i18n from "i18next";
 
+var URL = require("../../package.json").url;
+
 //TYPES
 //GET
 const GET_ALL_BOOKS_REQ = "auth/GET_ALL_BOOKS_REQ";
@@ -27,7 +29,7 @@ export const getAllBooks = () => async (dispatch) => {
 
   const getFunc = async () => {
     return axios
-      .get(`http://127.0.0.1:5000/book`)
+      .get(`${URL}/book`)
 
       .then((response) => {
         //checkToken();
@@ -63,9 +65,18 @@ export const addBook = (body, handleOpen) => async (dispatch) => {
   dispatch({ type: ADD_BOOK_REQ });
 
   const addFunc = async () => {
+    const dataAddBook = {
+      name: "Orlovi vrane lete",
+      tagline: "Djecija knjiga o partizanima",
+      category_id: 3,
+      author_id: 5,
+      short_desc:
+        "Lijepa stara knjiga o partizanima o složnosti djece i nekim povjesnim desavaanjima",
+    };
     return axios
-      .get(`http://127.0.0.1:5000/book`, {
-        body: JSON.stringify(),
+      .get(`${URL}/book`, {
+        method: "POST",
+        body: JSON.stringify(dataAddBook),
       })
 
       .then((response) => {
@@ -118,7 +129,7 @@ export const addBook = (body, handleOpen) => async (dispatch) => {
 const INIT_STATE = {
   loading: false,
   data: [],
-  total: [],
+  total: 0,
   addBooks: null,
 };
 
@@ -132,6 +143,8 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         loading: true,
 
         data: state.data,
+
+        total: state.total,
       };
 
     case GET_ALL_BOOKS_SCS:
@@ -152,6 +165,8 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         loading: false,
 
         data: state.data,
+
+        total: state.total,
       };
     case ADD_BOOK_REQ:
       return {
