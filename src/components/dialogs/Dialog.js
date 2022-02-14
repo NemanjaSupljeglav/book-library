@@ -7,14 +7,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "../buttons/Button";
 import "./dialog.css";
 
-function Dialogs({ setOpen, open, content, title, handleAddNewMovie }) {
+function Dialogs({ setOpen, open, content, title, handleAddNewBook }) {
   const handleClose = () => {
     setOpen(false);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    handleAddNewMovie();
+    handleAddNewBook();
   };
 
   return (
@@ -25,9 +25,13 @@ function Dialogs({ setOpen, open, content, title, handleAddNewMovie }) {
 
           <DialogContent>{content}</DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} label={"Cancel"} />
+            <Button onClick={handleClose} label={"Cancel"} variant="outlined" />
 
-            <Button onClick={submitHandler} label={"Confirm"} />
+            <Button
+              onClick={submitHandler}
+              label={"Confirm"}
+              variant="outlined"
+            />
           </DialogActions>
         </Dialog>
       </div>

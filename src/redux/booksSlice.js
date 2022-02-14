@@ -58,19 +58,10 @@ export const getAllBooks = () => async (dispatch) => {
 
 //ACTION ADD
 
-export const addBook = (body, handleOpen) => async (dispatch) => {
+export const addBook = (dataBook) => async (dispatch) => {
   dispatch({ type: ADD_BOOK_REQ });
 
   const addFunc = async () => {
-    console.log("uslo u add fun");
-    const dataAddBook = {
-      name: "Traktor tom",
-      tagline: "Djecija knjiga o partizanima",
-      category_id: 3,
-      author_id: 5,
-      short_desc:
-        "Lijepa stara knjiga o partizanima o složnosti djece i nekim povjesnim desavaanjima",
-    };
     return fetch(`${URL}/book`, {
       method: "POST",
       mode: "cors",
@@ -79,7 +70,7 @@ export const addBook = (body, handleOpen) => async (dispatch) => {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify(dataAddBook),
+      body: JSON.stringify(dataBook),
     });
   };
 
@@ -93,8 +84,6 @@ export const addBook = (body, handleOpen) => async (dispatch) => {
     });
 
     //dispatch({ type: VALIDATION_CLEAR });
-
-    handleOpen();
 
     //NotificationManager.success(i18n.t(response.status.description));
   } else {
