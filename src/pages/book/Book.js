@@ -143,7 +143,7 @@ function Book() {
           title={"The Greatest Books"}
           columns={columns}
           className="movie-data-table-wrapper"
-          data={bookData.data}
+          data={bookData.data.reverse()}
           options={options}
         />
       </ThemeProvider>

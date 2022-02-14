@@ -50,16 +50,12 @@ ul.links-list {
 }
 li.nav-item {
   list-style-type: none;
-  padding: 16px 16px;
-  width: 140px;
   display: flex;
   justify-content: center;
-  border-radius: 5px;
-  transition-duration: 0.2s;
-  cursor: pointer;
 }
 li.nav-item:hover {
   background: rgb(218, 218, 218);
+  border-radius: 5px;
 }
 .brand-title {
   padding: 8px 10px;
@@ -128,21 +124,20 @@ nav a.is-active {
   }
 
   li.nav-item {
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
     list-style-type: none;
-    padding: 16px 16px;
-    width: 140px;
     display: flex;
     justify-content: center;
-    border-radius: 5px;
-    transition-duration: 0.2s;
-    cursor: pointer;
   }
 
   li.nav-item a.nav-link {
     padding: 10px 20px;
+    border-radius: 5px;
+    align-items: center;
+    width: 140px;
+    height: 30px;
+    border-radius: 5px;
+    transition-duration: 0.2s;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -152,4 +147,17 @@ nav a.is-active {
     width: 0;
     overflow: hidden;
   }
+}
+li.nav-item a.nav-link {
+  padding: 10px 20px;
+  border-radius: 5px;
+  align-items: center;
+  width: 140px;
+  height: 30px;
+  border-radius: 5px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

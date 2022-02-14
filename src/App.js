@@ -8,7 +8,7 @@ function App() {
   return (
     <Provider store={configureStore()}>
       <div className="App">
-        <Dashboard></Dashboard>
+        <Dashboard />
       </div>
     </Provider>
   );
