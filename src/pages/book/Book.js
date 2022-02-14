@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBooks } from "../../redux/booksSlice";
-//import Button from "../../components/buttons/Button";
+import Button from "../../components/buttons/Button";
 
 //MUIDataTable
 import MUIDataTable from "mui-datatables";
@@ -12,7 +12,7 @@ import { faCheck, faTimes, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //forInput
-/*
+import Dialogs from "../../components/dialogs/Dialog";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -21,9 +21,9 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-*/
 
 function Book() {
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -137,13 +137,42 @@ function Book() {
     viewColumns: false,
     selectableRows: false,
   };
-
+  const dialogContent = (
+    <div>
+      <div className="dialog-content-wrapper">
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          name={"no name"}
+          placeholder="Movie title"
+          type="text"
+          fullWidth
+          variant="standard"
+          defaultValue={"sdasd"}
+          onChange={(event) => {}}
+        />
+      </div>
+    </div>
+  );
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
-        helkkoo
+        <Dialogs setOpen={setOpen} open={open} />
         <MUIDataTable
-          title={"The Greatest Books"}
+          title={
+            <div className="button-add-book">
+              <Button
+                onClick={() => {
+                  setOpen(true);
+                }}
+                label={"add new Book"}
+                color="error"
+                variant="outlined"
+                size="medium"
+              />
+            </div>
+          }
           columns={columns}
           className="movie-data-table-wrapper"
           data={bookData.data.reverse()}

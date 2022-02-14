@@ -1,5 +1,6 @@
 .book-wrapper {
-  margin-top: 15px;
+  margin-top: 30px;
+  z-index: 0;
 }
 .row-edit-table {
   cursor: pointer;
@@ -15,4 +16,9 @@
 }
 .published {
   margin-left: 25px;
+}
+.button-add-book {
+  position: relative;
+  left: -12px;
+  top: -2px;
 }

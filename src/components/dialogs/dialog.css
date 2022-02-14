@@ -1,0 +1,13 @@
+.wrapper {
+  color: red;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-bottom: -10px;
+}
+.year-of-presentation {
+  margin-bottom: 20px;
+}
+.rating-add {
+  position: relative;
+  top: 10px;
+}

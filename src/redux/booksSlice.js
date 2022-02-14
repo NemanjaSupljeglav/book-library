@@ -33,7 +33,6 @@ export const getAllBooks = () => async (dispatch) => {
 
       .then((response) => {
         //checkToken();
-        console.log(response.data);
         return response.data;
       })
 
@@ -50,11 +49,9 @@ export const getAllBooks = () => async (dispatch) => {
       type: GET_ALL_BOOKS_SCS,
       payload: { data: response.data, total: response.total },
     });
-    console.log(response.data.status);
     //NotificationManager.success(i18n.t(response.status.description));
   } else {
     dispatch({ type: GET_ALL_BOOKS_FLR });
-    console.log(response.status);
     //NotificationManager.error(i18n.t(response.status.description));
   }
 };
@@ -65,30 +62,25 @@ export const addBook = (body, handleOpen) => async (dispatch) => {
   dispatch({ type: ADD_BOOK_REQ });
 
   const addFunc = async () => {
+    console.log("uslo u add fun");
     const dataAddBook = {
-      name: "Orlovi vrane lete",
+      name: "Traktor tom",
       tagline: "Djecija knjiga o partizanima",
       category_id: 3,
       author_id: 5,
       short_desc:
         "Lijepa stara knjiga o partizanima o složnosti djece i nekim povjesnim desavaanjima",
     };
-    return axios
-      .get(`${URL}/book`, {
-        method: "POST",
-        body: JSON.stringify(dataAddBook),
-      })
+    return fetch(`${URL}/book`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
 
-      .then((response) => {
-        //checkToken();
-        console.log(response.data);
-        return response.data;
-      })
-
-      .catch((error) => {
-        //checkToken();
-        return console.log(error.message);
-      });
+      body: JSON.stringify(dataAddBook),
+    });
   };
 
   const response = await addFunc();
