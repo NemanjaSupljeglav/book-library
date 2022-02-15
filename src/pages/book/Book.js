@@ -3,25 +3,21 @@ import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBooks, addBook } from "../../redux/booksSlice";
 import Button from "../../components/buttons/Button";
-
+import { getAllAuthor } from "../../redux/authorsSlice";
+import { getAllCategory } from "../../redux/categorySlice";
+import Dialogs from "../../components/dialogs/Dialog";
 //MUIDataTable
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 import { faCheck, faTimes, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-//forInput
-import Dialogs from "../../components/dialogs/Dialog";
+import { FormControl } from "@material-ui/core";
 import TextField from "@mui/material/TextField";
-//import Box from "@mui/material/Box";
-//import InputLabel from "@mui/material/InputLabel";
-//import MenuItem from "@mui/material/MenuItem";
-//import FormControl from "@mui/material/FormControl";
-//import Select from "@mui/material/Select";
-//import ToggleButton from "@mui/material/ToggleButton";
-//import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import InputLabel from "@mui/material/InputLabel";
 
 function Book() {
   const [open, setOpen] = useState(false);
@@ -30,14 +26,25 @@ function Book() {
   const [categoryId, setCategoryId] = useState(1);
   const [authorId, setAuthorId] = useState(1);
   const [sorthDesc, setSorthDesc] = useState("");
+  //const [published, setPublished] = useState(true);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllBooks());
   }, [open]);
-  const bookData = useSelector((state) => state.bookReducer);
 
+  useEffect(() => {
+    dispatch(getAllAuthor());
+    dispatch(getAllCategory());
+  }, []);
+
+  const bookData = useSelector((state) => state.bookReducer);
+  const authorData = useSelector((state) => state.authorReducer.data);
+  const categoryData = useSelector((state) => state.categoryReducer.data);
+  console.log("categoryData");
+  console.log(categoryData);
+  console.log("categoryData");
   //MUIDataTable
 
   const columns = [
@@ -173,7 +180,6 @@ function Book() {
           name={"Book title"}
           placeholder="Book title"
           type="text"
-          fullWidth
           variant="standard"
           onChange={(event) => {
             setName(event.target.value);
@@ -187,9 +193,8 @@ function Book() {
           name={"Book description"}
           placeholder="Book description"
           type="text"
-          fullWidth
           variant="standard"
-          style={{ width: 543, height: 100 }}
+          style={{ minWidth: 400, minHeight: 100 }}
           onChange={(event) => {
             setSorthDesc(event.target.value);
           }}
@@ -201,41 +206,69 @@ function Book() {
           name={"Tagline"}
           placeholder="Tagline"
           type="text"
-          fullWidth
           variant="standard"
           onChange={(event) => {
             setTagline(event.target.value);
           }}
           required
         />
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          name={"Category"}
-          placeholder="Category unesi broj od 1 do 8"
-          type="number"
-          fullWidth
-          variant="standard"
-          onChange={(event) => {
-            setCategoryId(event.target.value);
-          }}
-          required
-        />
-        <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          name={"Author"}
-          placeholder="Author unesi broj od 1 do 18"
-          type="number"
-          fullWidth
-          variant="standard"
-          onChange={(event) => {
-            setAuthorId(event.target.value);
-          }}
-          required
-        />
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-standard-label">Author</InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={authorId}
+            label="Author"
+            onChange={(event) => {
+              setAuthorId(event.target.value);
+            }}
+          >
+            {authorData?.map((data) => {
+              return (
+                <MenuItem
+                  key={data.id}
+                  value={data.id}
+                  defaultValue={1}
+                  style={{
+                    display: "flex",
+                  }}
+                >
+                  {data.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="demo-simple-select-standard-label">
+            Category
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={categoryId}
+            label="Category"
+            onChange={(event) => {
+              setCategoryId(event.target.value);
+            }}
+          >
+            {categoryData?.map((data) => {
+              return (
+                <MenuItem
+                  key={data.id}
+                  value={data.id}
+                  defaultValue={1}
+                  style={{
+                    display: "flex",
+                  }}
+                >
+                  {data.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
       </div>
     </div>
   );
@@ -257,7 +290,6 @@ function Book() {
                   setOpen(true);
                 }}
                 label={"add new Book"}
-                color="error"
                 variant="outlined"
                 size="medium"
               />

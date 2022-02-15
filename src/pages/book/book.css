@@ -22,3 +22,7 @@
   left: -12px;
   top: -2px;
 }
+.dialog-content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
