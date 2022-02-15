@@ -7,14 +7,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "../buttons/Button";
 import "./dialog.css";
 
-function Dialogs({ setOpen, open, content, title, handleAddNewBook }) {
+function Dialogs({ setOpen, open, content, title, handleAddNew }) {
   const handleClose = () => {
     setOpen(false);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    handleAddNewBook();
+    handleAddNew();
   };
 
   return (

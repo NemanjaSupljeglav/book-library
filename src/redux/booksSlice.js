@@ -1,4 +1,5 @@
 // IMPORTS
+import { faL } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 //import { NotificationManager } from "react-notifications";
 
@@ -21,6 +22,12 @@ const ADD_BOOK_REQ = "auth/ADD_BOOK_REQ";
 const ADD_BOOK_SCS = "auth/ADD_BOOK_SCS";
 
 const ADD_BOOK_FLR = "auth/ADD_BOOK_FLR";
+
+//Delete
+
+const DELETE_BOOK_REQ = "auth/DELETE_BOOK_REQ";
+const DELETE_BOOK_SCS = "auth/DELETE_BOOK_SCS";
+const DELETE_BOOK_FLR = "auth/DELETE_BOOK_FLR";
 
 //ACTION GET
 
@@ -100,7 +107,48 @@ export const addBook = (dataBook) => async (dispatch) => {
     }
   }
 };
+//ACTION ADD
 
+export const deleteBook = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_BOOK_REQ });
+
+  const deleteFunc = async () => {
+    return fetch(`${URL}/book/${id}`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const response = await deleteFunc();
+
+  if (response.status.errorCode === 200) {
+    dispatch({
+      type: DELETE_BOOK_SCS,
+
+      payload: response.data,
+    });
+
+    //dispatch({ type: VALIDATION_CLEAR });
+
+    //NotificationManager.success(i18n.t(response.status.description));
+  } else {
+    // eslint-disable-next-line no-lonely-if
+
+    if (typeof response.status.description === "string") {
+      //NotificationManager.error(i18n.t(response.status.description));
+
+      dispatch({ type: DELETE_BOOK_FLR });
+
+      //dispatch({ type: VALIDATION_CLEAR });
+    } else {
+      //dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
+  }
+};
 /**
 
  * REDUCERS
@@ -176,6 +224,38 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         loading: false,
 
         addBooks: state.addBooks,
+      };
+    case DELETE_BOOK_REQ:
+      return {
+        ...state,
+
+        loading: true,
+
+        data: state.data,
+
+        total: state.total,
+      };
+
+    case DELETE_BOOK_SCS:
+      return {
+        ...state,
+
+        loading: false,
+
+        data: state.data,
+
+        total: state.total,
+      };
+
+    case DELETE_BOOK_FLR:
+      return {
+        ...state,
+
+        loading: false,
+
+        data: state.data,
+
+        total: state.total,
       };
   }
 }

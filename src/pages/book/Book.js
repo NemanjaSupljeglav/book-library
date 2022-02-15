@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, addBook } from "../../redux/booksSlice";
+import { getAllBooks, addBook, deleteBook } from "../../redux/booksSlice";
 import Button from "../../components/buttons/Button";
 import { getAllAuthor } from "../../redux/authorsSlice";
 import { getAllCategory } from "../../redux/categorySlice";
@@ -10,7 +10,12 @@ import Dialogs from "../../components/dialogs/Dialog";
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import { faCheck, faTimes, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faTimes,
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormControl } from "@material-ui/core";
 import TextField from "@mui/material/TextField";
@@ -26,13 +31,14 @@ function Book() {
   const [categoryId, setCategoryId] = useState(1);
   const [authorId, setAuthorId] = useState(1);
   const [sorthDesc, setSorthDesc] = useState("");
+  const [count, setCount] = useState(0);
   //const [published, setPublished] = useState(true);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, [open]);
+  }, [open, count]);
 
   useEffect(() => {
     dispatch(getAllAuthor());
@@ -42,9 +48,7 @@ function Book() {
   const bookData = useSelector((state) => state.bookReducer);
   const authorData = useSelector((state) => state.authorReducer.data);
   const categoryData = useSelector((state) => state.categoryReducer.data);
-  console.log("categoryData");
-  console.log(categoryData);
-  console.log("categoryData");
+
   //MUIDataTable
 
   const columns = [
@@ -157,6 +161,35 @@ function Book() {
         },
       },
     },
+    {
+      name: "",
+      label: "",
+      property: "id",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRenderLite: (dataIndex) => {
+          return (
+            <>
+              {bookData.data[dataIndex] && (
+                <FontAwesomeIcon
+                  className="row-edit-table"
+                  icon={faTrash}
+                  onClick={() => {
+                    dispatch(deleteBook(bookData.data[dataIndex].uuid));
+                    setCount(count + 1);
+                    //setAddNewOrEdit("Edit movie");
+                    //dispatch(getEditMovie(movies[dataIndex]?.id));
+                    //setOpen(true);
+                  }}
+                />
+              )}
+            </>
+          );
+        },
+      },
+    },
   ];
   //Table option
   const options = {
@@ -172,7 +205,7 @@ function Book() {
     short_desc: sorthDesc,
   };
 
-  function handleAddNewBook() {
+  function handleAddNew() {
     const dataBook = {
       name: name,
       tagline: tagline,
@@ -294,7 +327,8 @@ function Book() {
           open={open}
           content={dialogContent}
           dataBook={dataBook}
-          handleAddNewBook={handleAddNewBook}
+          handleAddNew={handleAddNew}
+          title={"Add new book"}
         />
         <MUIDataTable
           title={
