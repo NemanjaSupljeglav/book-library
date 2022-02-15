@@ -57,19 +57,33 @@ function Book() {
       },
     },
     {
+      name: "author_id",
+      label: "Author",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRenderLite: (dataIndex) => {
+          let authorId = bookData.data[dataIndex].author_id;
+          let authorName = authorData.find((e) => {
+            return e.id === authorId;
+          });
+          return <>{authorName && <div>{authorName.name}</div>}</>;
+        },
+      },
+    },
+    {
       name: "category_id",
       label: "Category",
       options: {
         filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: "author_id",
-      label: "author",
-      options: {
-        filter: true,
-        sort: true,
+        sort: false,
+        customBodyRenderLite: (dataIndex) => {
+          let categoryId = bookData.data[dataIndex].category_id;
+          let categoryName = categoryData.find((e) => {
+            return e.id === categoryId;
+          });
+          return <>{categoryName && <div>{categoryName.name}</div>}</>;
+        },
       },
     },
     {
@@ -83,7 +97,7 @@ function Book() {
 
     {
       name: "is_published",
-      label: "PUBLISHED",
+      label: "Published",
       options: {
         filter: true,
         sort: false,
