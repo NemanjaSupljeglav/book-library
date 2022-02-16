@@ -12,6 +12,7 @@ import { getAllAuthor } from "../../redux/authorsSlice";
 import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
 import WarniningDialog from "../../components/dialogs/WarningDialog";
+
 //MUIDataTable
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
@@ -45,8 +46,6 @@ function Book() {
   const [isPublished, setIsPublished] = useState(false);
   const [delteBookId, steDelteBookId] = useState(0);
 
-  //const [published, setPublished] = useState(true);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,7 +57,7 @@ function Book() {
     dispatch(getAllCategory());
   }, []);
 
-  const bookData = useSelector((state) => state.bookReducer);
+  const bookData = useSelector((state) => state.bookReducer.data);
   const authorData = useSelector((state) => state.authorReducer.data);
   const categoryData = useSelector((state) => state.categoryReducer.data);
 
@@ -80,7 +79,7 @@ function Book() {
         filter: true,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          let authorId = bookData.data[dataIndex].author_id;
+          let authorId = bookData[dataIndex].author_id;
           let authorName = authorData.find((e) => {
             return e.id === authorId;
           });
@@ -95,7 +94,7 @@ function Book() {
         filter: true,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          let categoryId = bookData.data[dataIndex].category_id;
+          let categoryId = bookData[dataIndex].category_id;
           let categoryName = categoryData.find((e) => {
             return e.id === categoryId;
           });
@@ -121,7 +120,7 @@ function Book() {
         customBodyRenderLite: (dataIndex) => {
           return (
             <>
-              {bookData.data[dataIndex].is_published ? (
+              {bookData[dataIndex].is_published ? (
                 <FontAwesomeIcon
                   className="published"
                   icon={faCheck}
@@ -150,24 +149,21 @@ function Book() {
         customBodyRenderLite: (dataIndex) => {
           return (
             <>
-              {bookData.data[dataIndex] && (
+              {bookData[dataIndex] && (
                 <FontAwesomeIcon
                   className="row-edit-table"
                   icon={faEdit}
                   onClick={() => {
-                    setBookId(bookData.data[dataIndex].uuid);
-                    setName(bookData.data[dataIndex].name);
-                    setTagline(bookData.data[dataIndex].tagline);
-                    setSorthDesc(bookData.data[dataIndex].short_desc);
-                    setCategoryId(bookData.data[dataIndex].category_id);
-                    setAuthorId(bookData.data[dataIndex].author_id);
-                    setIsPublished(bookData.data[dataIndex].is_published);
+                    setBookId(bookData[dataIndex].uuid);
+                    setName(bookData[dataIndex].name);
+                    setTagline(bookData[dataIndex].tagline);
+                    setSorthDesc(bookData[dataIndex].short_desc);
+                    setCategoryId(bookData[dataIndex].category_id);
+                    setAuthorId(bookData[dataIndex].author_id);
+                    setIsPublished(bookData[dataIndex].is_published);
                     setOpen(true);
 
-                    console.log(
-                      "This is for edit",
-                      bookData.data[dataIndex].uuid
-                    );
+                    console.log("This is for edit", bookData[dataIndex].uuid);
 
                     //setAddNewOrEdit("Edit movie");
                     //dispatch(getEditMovie(movies[dataIndex]?.id));
@@ -191,12 +187,12 @@ function Book() {
         customBodyRenderLite: (dataIndex) => {
           return (
             <>
-              {bookData.data[dataIndex] && (
+              {bookData[dataIndex] && (
                 <FontAwesomeIcon
                   className="row-edit-table"
                   icon={faTrash}
                   onClick={() => {
-                    steDelteBookId(bookData.data[dataIndex].uuid);
+                    steDelteBookId(bookData[dataIndex].uuid);
                     setOpenDelete(true);
                   }}
                 />
@@ -410,7 +406,7 @@ function Book() {
           }
           columns={columns}
           className="movie-data-table-wrapper"
-          data={bookData.data}
+          data={bookData}
           options={options}
         />
       </ThemeProvider>
