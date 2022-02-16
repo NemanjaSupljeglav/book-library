@@ -11,6 +11,7 @@ import Button from "../../components/buttons/Button";
 import { getAllAuthor } from "../../redux/authorsSlice";
 import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
+import WarniningDialog from "../../components/dialogs/WarningDialog";
 //MUIDataTable
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
@@ -33,6 +34,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 
 function Book() {
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [name, setName] = useState("");
   const [tagline, setTagline] = useState("");
   const [categoryId, setCategoryId] = useState(0);
@@ -41,6 +43,7 @@ function Book() {
   const [count, setCount] = useState(0);
   const [bookId, setBookId] = useState("");
   const [isPublished, setIsPublished] = useState(false);
+  const [delteBookId, steDelteBookId] = useState(0);
 
   //const [published, setPublished] = useState(true);
 
@@ -193,8 +196,8 @@ function Book() {
                   className="row-edit-table"
                   icon={faTrash}
                   onClick={() => {
-                    dispatch(deleteBook(bookData.data[dataIndex].uuid));
-                    setCount(count + 1);
+                    steDelteBookId(bookData.data[dataIndex].uuid);
+                    setOpenDelete(true);
                   }}
                 />
               )}
@@ -219,6 +222,12 @@ function Book() {
     is_published: isPublished,
   };
 
+  function handleDelete() {
+    dispatch(deleteBook(delteBookId));
+    setCount(count + 1);
+    setOpenDelete(false);
+  }
+
   function handleAddNew() {
     const dataBook = {
       name: name,
@@ -229,14 +238,16 @@ function Book() {
       is_published: isPublished,
     };
 
-    {
-      bookId == ""
-        ? dispatch(addBook(dataBook))
-        : dispatch(editBook(dataBook, bookId));
-    }
+    bookId == ""
+      ? dispatch(addBook(dataBook))
+      : dispatch(editBook(dataBook, bookId));
+
     setOpen(false);
   }
   //dialog content
+  const dialogContentDelte = (
+    <h3> Are you sure you want to delete this book?</h3>
+  );
   const dialogContent = (
     <div>
       <div className="dialog-content-wrapper">
@@ -370,6 +381,13 @@ function Book() {
           dataBook={dataBook}
           handleAddNew={handleAddNew}
           title={bookId === "" ? "Add new book" : "Edit book"}
+        />
+        <WarniningDialog
+          setOpenDelete={setOpenDelete}
+          openDelte={openDelete}
+          contentDelte={dialogContentDelte}
+          delteBookId={delteBookId}
+          handleDelete={handleDelete}
         />
         <MUIDataTable
           title={
