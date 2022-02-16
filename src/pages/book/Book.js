@@ -50,7 +50,7 @@ function Book() {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, [open, count]);
+  }, [count]);
 
   useEffect(() => {
     dispatch(getAllAuthor());
@@ -162,12 +162,6 @@ function Book() {
                     setAuthorId(bookData[dataIndex].author_id);
                     setIsPublished(bookData[dataIndex].is_published);
                     setOpen(true);
-
-                    console.log("This is for edit", bookData[dataIndex].uuid);
-
-                    //setAddNewOrEdit("Edit movie");
-                    //dispatch(getEditMovie(movies[dataIndex]?.id));
-                    //setOpen(true);
                   }}
                 />
               )}
@@ -203,6 +197,7 @@ function Book() {
       },
     },
   ];
+
   //Table option
   const options = {
     print: false,
@@ -238,6 +233,7 @@ function Book() {
       ? dispatch(addBook(dataBook))
       : dispatch(editBook(dataBook, bookId));
 
+    setCount(count + 1);
     setOpen(false);
   }
   //dialog content
