@@ -1,6 +1,7 @@
 {
   "url": "http://127.0.0.1:5000",
-  "name": "nav-demo",
+  "name": "book-library",
+  "main": "index.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
