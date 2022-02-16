@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, addBook, deleteBook } from "../../redux/booksSlice";
+import {
+  getAllBooks,
+  addBook,
+  deleteBook,
+  editBook,
+} from "../../redux/booksSlice";
 import Button from "../../components/buttons/Button";
 import { getAllAuthor } from "../../redux/authorsSlice";
 import { getAllCategory } from "../../redux/categorySlice";
@@ -23,15 +28,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import InputLabel from "@mui/material/InputLabel";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 function Book() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [tagline, setTagline] = useState("");
-  const [categoryId, setCategoryId] = useState(1);
-  const [authorId, setAuthorId] = useState(1);
+  const [categoryId, setCategoryId] = useState(0);
+  const [authorId, setAuthorId] = useState(0);
   const [sorthDesc, setSorthDesc] = useState("");
   const [count, setCount] = useState(0);
+  const [bookId, setBookId] = useState("");
+  const [isPublished, setIsPublished] = useState(false);
+
   //const [published, setPublished] = useState(true);
 
   const dispatch = useDispatch();
@@ -137,22 +147,28 @@ function Book() {
         customBodyRenderLite: (dataIndex) => {
           return (
             <>
-              {bookData.data[dataIndex].is_published ? (
+              {bookData.data[dataIndex] && (
                 <FontAwesomeIcon
                   className="row-edit-table"
                   icon={faEdit}
                   onClick={() => {
-                    console.log("This is for edit");
+                    setBookId(bookData.data[dataIndex].uuid);
+                    setName(bookData.data[dataIndex].name);
+                    setTagline(bookData.data[dataIndex].tagline);
+                    setSorthDesc(bookData.data[dataIndex].short_desc);
+                    setCategoryId(bookData.data[dataIndex].category_id);
+                    setAuthorId(bookData.data[dataIndex].author_id);
+                    setIsPublished(bookData.data[dataIndex].is_published);
+                    setOpen(true);
+
+                    console.log(
+                      "This is for edit",
+                      bookData.data[dataIndex].uuid
+                    );
+
                     //setAddNewOrEdit("Edit movie");
                     //dispatch(getEditMovie(movies[dataIndex]?.id));
                     //setOpen(true);
-                  }}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  onClick={() => {
-                    console.log("This movie is not available");
                   }}
                 />
               )}
@@ -179,9 +195,6 @@ function Book() {
                   onClick={() => {
                     dispatch(deleteBook(bookData.data[dataIndex].uuid));
                     setCount(count + 1);
-                    //setAddNewOrEdit("Edit movie");
-                    //dispatch(getEditMovie(movies[dataIndex]?.id));
-                    //setOpen(true);
                   }}
                 />
               )}
@@ -203,6 +216,7 @@ function Book() {
     category_id: categoryId,
     author_id: authorId,
     short_desc: sorthDesc,
+    is_published: isPublished,
   };
 
   function handleAddNew() {
@@ -212,11 +226,17 @@ function Book() {
       category_id: categoryId,
       author_id: authorId,
       short_desc: sorthDesc,
+      is_published: isPublished,
     };
-    dispatch(addBook(dataBook));
+
+    {
+      bookId == ""
+        ? dispatch(addBook(dataBook))
+        : dispatch(editBook(dataBook, bookId));
+    }
     setOpen(false);
   }
-
+  //dialog content
   const dialogContent = (
     <div>
       <div className="dialog-content-wrapper">
@@ -226,6 +246,7 @@ function Book() {
           id="name"
           name={"Book title"}
           placeholder="Book title"
+          defaultValue={name}
           type="text"
           variant="standard"
           onChange={(event) => {
@@ -240,6 +261,7 @@ function Book() {
           name={"Book description"}
           placeholder="Book description"
           type="text"
+          defaultValue={sorthDesc}
           variant="standard"
           style={{ minWidth: 400, minHeight: 100 }}
           onChange={(event) => {
@@ -253,6 +275,7 @@ function Book() {
           name={"Tagline"}
           placeholder="Tagline"
           type="text"
+          defaultValue={tagline}
           variant="standard"
           onChange={(event) => {
             setTagline(event.target.value);
@@ -316,6 +339,24 @@ function Book() {
             })}
           </Select>
         </FormControl>
+        {bookId != "" && (
+          <FormControlLabel
+            value="Publish"
+            control={
+              <Switch
+                checked={isPublished}
+                defaultValue={isPublished}
+                onChange={(event) => {
+                  setIsPublished(event.target.checked);
+                  console.log(isPublished);
+                }}
+                inputProps={{ "aria-label": "controlled" }}
+                label={"Published"}
+              />
+            }
+            label="Publish"
+          />
+        )}
       </div>
     </div>
   );
@@ -328,13 +369,19 @@ function Book() {
           content={dialogContent}
           dataBook={dataBook}
           handleAddNew={handleAddNew}
-          title={"Add new book"}
+          title={bookId === "" ? "Add new book" : "Edit book"}
         />
         <MUIDataTable
           title={
             <div className="button-add-book">
               <Button
                 onClick={() => {
+                  setBookId("");
+                  setName("");
+                  setTagline("");
+                  setSorthDesc("");
+                  setCategoryId("");
+                  setAuthorId("");
                   setOpen(true);
                 }}
                 label={"add new Book"}

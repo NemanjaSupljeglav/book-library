@@ -8,19 +8,16 @@ import axios from "axios";
 var URL = require("../../package.json").url;
 
 //TYPES
+
 //GET
 const GET_ALL_BOOKS_REQ = "auth/GET_ALL_BOOKS_REQ";
-
 const GET_ALL_BOOKS_SCS = "auth/GET_ALL_BOOKS_SCS";
-
 const GET_ALL_BOOKS_FLR = "auth/GET_ALL_BOOKS_FLR";
 
 //ADD
 
 const ADD_BOOK_REQ = "auth/ADD_BOOK_REQ";
-
 const ADD_BOOK_SCS = "auth/ADD_BOOK_SCS";
-
 const ADD_BOOK_FLR = "auth/ADD_BOOK_FLR";
 
 //Delete
@@ -107,7 +104,8 @@ export const addBook = (dataBook) => async (dispatch) => {
     }
   }
 };
-//ACTION ADD
+
+//ACTION DELETE
 
 export const deleteBook = (id) => async (dispatch) => {
   dispatch({ type: DELETE_BOOK_REQ });
@@ -149,6 +147,52 @@ export const deleteBook = (id) => async (dispatch) => {
     }
   }
 };
+
+//ACTION EDIT
+
+export const editBook = (dataBook, bookId) => async (dispatch) => {
+  dispatch({ type: ADD_BOOK_REQ });
+
+  const addFunc = async () => {
+    return fetch(`${URL}/book/${bookId}`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify(dataBook),
+    });
+  };
+
+  const response = await addFunc();
+
+  if (response.status.errorCode === 200) {
+    dispatch({
+      type: ADD_BOOK_SCS,
+
+      payload: response.data,
+    });
+
+    //dispatch({ type: VALIDATION_CLEAR });
+
+    //NotificationManager.success(i18n.t(response.status.description));
+  } else {
+    // eslint-disable-next-line no-lonely-if
+
+    if (typeof response.status.description === "string") {
+      //NotificationManager.error(i18n.t(response.status.description));
+
+      dispatch({ type: ADD_BOOK_FLR });
+
+      //dispatch({ type: VALIDATION_CLEAR });
+    } else {
+      //dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
+  }
+};
+
 /**
 
  * REDUCERS
