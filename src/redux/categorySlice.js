@@ -77,11 +77,11 @@ export const addCategory = (dataCategory) => async (dispatch) => {
 
   const response = await addFunc();
 
-  if (response.status.errorCode === 200) {
+  if (response.status === 200) {
     dispatch({
       type: ADD_CATEGORY_SCS,
 
-      payload: response.data,
+      payload: dataCategory,
     });
 
     //dispatch({ type: VALIDATION_CLEAR });

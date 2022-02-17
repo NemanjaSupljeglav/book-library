@@ -13,17 +13,11 @@ import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
 import WarniningDialog from "../../components/dialogs/WarningDialog";
 
-//MUIDataTable
+//MUI
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import {
-  faCheck,
-  faTimes,
-  faEdit,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { FormControl } from "@material-ui/core";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -32,7 +26,10 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import InputLabel from "@mui/material/InputLabel";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
-
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 function Book() {
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -50,7 +47,7 @@ function Book() {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, [count]);
+  }, []);
 
   useEffect(() => {
     dispatch(getAllAuthor());
@@ -121,17 +118,9 @@ function Book() {
           return (
             <>
               {bookData[dataIndex].is_published ? (
-                <FontAwesomeIcon
-                  className="published"
-                  icon={faCheck}
-                  color="green"
-                />
+                <CheckCircleOutlineIcon className="published" color="green" />
               ) : (
-                <FontAwesomeIcon
-                  className="published"
-                  icon={faTimes}
-                  color="red"
-                />
+                <ErrorOutlineIcon className="published" />
               )}
             </>
           );
@@ -150,9 +139,8 @@ function Book() {
           return (
             <>
               {bookData[dataIndex] && (
-                <FontAwesomeIcon
+                <EditIcon
                   className="row-edit-table"
-                  icon={faEdit}
                   onClick={() => {
                     setBookId(bookData[dataIndex].uuid);
                     setName(bookData[dataIndex].name);
@@ -182,9 +170,8 @@ function Book() {
           return (
             <>
               {bookData[dataIndex] && (
-                <FontAwesomeIcon
+                <DeleteOutlineIcon
                   className="row-edit-table"
-                  icon={faTrash}
                   onClick={() => {
                     steDelteBookId(bookData[dataIndex].uuid);
                     setOpenDelete(true);
@@ -229,7 +216,7 @@ function Book() {
       is_published: isPublished,
     };
 
-    bookId == ""
+    bookId === ""
       ? dispatch(addBook(dataBook))
       : dispatch(editBook(dataBook, bookId));
 
@@ -292,6 +279,7 @@ function Book() {
             id="demo-simple-select-standard"
             value={authorId}
             label="Author"
+            variant="standard"
             onChange={(event) => {
               setAuthorId(event.target.value);
             }}
@@ -320,6 +308,7 @@ function Book() {
           <Select
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
+            variant="standard"
             value={categoryId}
             label="Category"
             onChange={(event) => {
@@ -342,7 +331,7 @@ function Book() {
             })}
           </Select>
         </FormControl>
-        {bookId != "" && (
+        {bookId !== "" && (
           <FormControlLabel
             value="Publish"
             control={

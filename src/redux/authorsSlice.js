@@ -59,7 +59,7 @@ export const getAllAuthor = () => async (dispatch) => {
 
 //ACTION ADD
 
-export const addAuthor = (dataBook) => async (dispatch) => {
+export const addAuthor = (dataAuthor) => async (dispatch) => {
   dispatch({ type: ADD_AUTHOR_REQ });
 
   const addFunc = async () => {
@@ -71,17 +71,17 @@ export const addAuthor = (dataBook) => async (dispatch) => {
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify(dataBook),
+      body: JSON.stringify(dataAuthor),
     });
   };
 
   const response = await addFunc();
 
-  if (response.status.errorCode === 200) {
+  if (response.status === 200) {
     dispatch({
       type: ADD_AUTHOR_SCS,
 
-      payload: response.data,
+      payload: dataAuthor,
     });
 
     //dispatch({ type: VALIDATION_CLEAR });

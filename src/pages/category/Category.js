@@ -3,7 +3,7 @@ import "./category.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addCategory } from "../../redux/categorySlice";
 import Button from "../../components/buttons/Button";
-import { getAllAuthor } from "../../redux/authorsSlice";
+import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
 
 //MUIDataTable
@@ -21,8 +21,8 @@ function Category() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllAuthor());
-  }, [open]);
+    dispatch(getAllCategory());
+  }, []);
 
   const categoryData = useSelector((state) => state.categoryReducer.data);
 

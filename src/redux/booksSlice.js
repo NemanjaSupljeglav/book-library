@@ -1,5 +1,5 @@
 // IMPORTS
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import { faFileWord, faL } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 //import { NotificationManager } from "react-notifications";
 
@@ -25,6 +25,12 @@ const ADD_BOOK_FLR = "auth/ADD_BOOK_FLR";
 const DELETE_BOOK_REQ = "auth/DELETE_BOOK_REQ";
 const DELETE_BOOK_SCS = "auth/DELETE_BOOK_SCS";
 const DELETE_BOOK_FLR = "auth/DELETE_BOOK_FLR";
+
+//EDIT
+
+const EDIT_BOOK_REQ = "auth/EDIT_BOOK_REQ";
+const EDIT_BOOK_SCS = "auth/EDIT_BOOK_SCS";
+const EDIT_BOOK_FLR = "auth/EDIT_BOOK_FLR";
 
 //ACTION GET
 
@@ -79,12 +85,14 @@ export const addBook = (dataBook) => async (dispatch) => {
   };
 
   const response = await addFunc();
-
-  if (response.status.errorCode === 200) {
+  console.log("response");
+  console.log(response);
+  console.log("response");
+  if (response.status === 200) {
     dispatch({
       type: ADD_BOOK_SCS,
 
-      payload: response.data,
+      payload: dataBook,
     });
 
     //dispatch({ type: VALIDATION_CLEAR });
@@ -93,7 +101,7 @@ export const addBook = (dataBook) => async (dispatch) => {
   } else {
     // eslint-disable-next-line no-lonely-if
 
-    if (typeof response.status.description === "string") {
+    if (typeof response.status === "string") {
       //NotificationManager.error(i18n.t(response.status.description));
 
       dispatch({ type: ADD_BOOK_FLR });
@@ -123,11 +131,11 @@ export const deleteBook = (id) => async (dispatch) => {
 
   const response = await deleteFunc();
 
-  if (response.status.errorCode === 200) {
+  if (response.status === 200) {
     dispatch({
       type: DELETE_BOOK_SCS,
 
-      payload: response.data,
+      payload: id,
     });
 
     //dispatch({ type: VALIDATION_CLEAR });
@@ -136,7 +144,7 @@ export const deleteBook = (id) => async (dispatch) => {
   } else {
     // eslint-disable-next-line no-lonely-if
 
-    if (typeof response.status.description === "string") {
+    if (typeof response.status === "string") {
       //NotificationManager.error(i18n.t(response.status.description));
 
       dispatch({ type: DELETE_BOOK_FLR });
@@ -151,7 +159,7 @@ export const deleteBook = (id) => async (dispatch) => {
 //ACTION EDIT
 
 export const editBook = (dataBook, bookId) => async (dispatch) => {
-  dispatch({ type: ADD_BOOK_REQ });
+  dispatch({ type: EDIT_BOOK_REQ });
 
   const addFunc = async () => {
     return fetch(`${URL}/book/${bookId}`, {
@@ -168,11 +176,13 @@ export const editBook = (dataBook, bookId) => async (dispatch) => {
 
   const response = await addFunc();
 
-  if (response.status.errorCode === 200) {
+  if (response.status === 200) {
     dispatch({
-      type: ADD_BOOK_SCS,
+      type: EDIT_BOOK_SCS,
 
-      payload: response.data,
+      payload: dataBook,
+
+      bookId: bookId,
     });
 
     //dispatch({ type: VALIDATION_CLEAR });
@@ -181,10 +191,10 @@ export const editBook = (dataBook, bookId) => async (dispatch) => {
   } else {
     // eslint-disable-next-line no-lonely-if
 
-    if (typeof response.status.description === "string") {
+    if (typeof response.status === "string") {
       //NotificationManager.error(i18n.t(response.status.description));
 
-      dispatch({ type: ADD_BOOK_FLR });
+      dispatch({ type: EDIT_BOOK_FLR });
 
       //dispatch({ type: VALIDATION_CLEAR });
     } else {
@@ -283,14 +293,11 @@ export function bookReducer(state = INIT_STATE, action = {}) {
     case DELETE_BOOK_SCS:
       return {
         ...state,
-
         loading: false,
 
-        data: state.data,
-
-        total: state.total,
+        addBooks: action.payload,
+        data: state.data.filter((book) => book.uuid !== action.payload),
       };
-
     case DELETE_BOOK_FLR:
       return {
         ...state,
@@ -300,6 +307,37 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         data: state.data,
 
         total: state.total,
+      };
+    case EDIT_BOOK_REQ:
+      return {
+        ...state,
+
+        loading: true,
+
+        addBooks: state.addBooks,
+      };
+
+    case EDIT_BOOK_SCS:
+      return {
+        ...state,
+        loading: false,
+
+        addBooks: action.payload,
+        data: state.data.map((item) => {
+          if (item.uuid === action.bookId) {
+            item = action.payload;
+            return item;
+          }
+          return item;
+        }),
+      };
+    case EDIT_BOOK_FLR:
+      return {
+        ...state,
+
+        loading: false,
+
+        addBooks: state.addBooks,
       };
   }
 }
