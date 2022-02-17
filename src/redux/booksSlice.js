@@ -72,27 +72,33 @@ export const addBook = (dataBook) => async (dispatch) => {
   dispatch({ type: ADD_BOOK_REQ });
 
   const addFunc = async () => {
-    return fetch(`${URL}/book`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+    return axios
+      .post(`${URL}/book`, {
+        name: dataBook.name,
+        tagline: dataBook.tagline,
+        category_id: dataBook.category_id,
+        author_id: dataBook.author_id,
+        short_desc: dataBook.short_desc,
+      })
 
-      body: JSON.stringify(dataBook),
-    });
+      .then((response) => {
+        //checkToken();
+        return response;
+      })
+
+      .catch((error) => {
+        //checkToken();
+        return console.log(error.message);
+      });
   };
 
-  const response = await addFunc().then((res) => {
-    return res.json();
-  });
+  const response = await addFunc();
 
-  if (response.status === 200) {
+  if (response.data.status === 201) {
     dispatch({
       type: ADD_BOOK_SCS,
 
-      payload: dataBook,
+      payload: response.data.data,
     });
 
     console.log(response);

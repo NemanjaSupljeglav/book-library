@@ -61,7 +61,7 @@ export const getAllCategory = () => async (dispatch) => {
 
 export const addCategory = (dataCategory) => async (dispatch) => {
   dispatch({ type: ADD_CATEGORY_REQ });
-
+  /*
   const addFunc = async () => {
     return fetch(`${URL}/category`, {
       method: "POST",
@@ -76,12 +76,31 @@ export const addCategory = (dataCategory) => async (dispatch) => {
   };
 
   const response = await addFunc();
+*/
+  const addFunc = async () => {
+    return axios
+      .post(`${URL}/category`, {
+        name: dataCategory.name,
+        short_desc: dataCategory.short_desc,
+      })
 
-  if (response.status === 200) {
+      .then((response) => {
+        //checkToken();
+        return response;
+      })
+
+      .catch((error) => {
+        //checkToken();
+        return console.log(error.message);
+      });
+  };
+
+  const response = await addFunc();
+  if (response.data.status === 201) {
     dispatch({
       type: ADD_CATEGORY_SCS,
 
-      payload: dataCategory,
+      payload: response.data.data,
     });
 
     //dispatch({ type: VALIDATION_CLEAR });

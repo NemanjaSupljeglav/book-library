@@ -58,11 +58,11 @@ function Category() {
   };
 
   function handleAddNew() {
-    const dataAuthor = {
+    const dataCategory = {
       name: name,
       short_desc: about,
     };
-    dispatch(addCategory(dataAuthor));
+    dispatch(addCategory(dataCategory));
     setOpen(false);
   }
 

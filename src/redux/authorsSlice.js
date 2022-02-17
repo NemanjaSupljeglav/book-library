@@ -63,25 +63,29 @@ export const addAuthor = (dataAuthor) => async (dispatch) => {
   dispatch({ type: ADD_AUTHOR_REQ });
 
   const addFunc = async () => {
-    return fetch(`${URL}/author`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+    return axios
+      .post(`${URL}/author`, {
+        name: dataAuthor.name,
+        about: dataAuthor.about,
+      })
 
-      body: JSON.stringify(dataAuthor),
-    });
+      .then((response) => {
+        //checkToken();
+        return response;
+      })
+
+      .catch((error) => {
+        //checkToken();
+        return console.log(error.message);
+      });
   };
 
   const response = await addFunc();
-
-  if (response.status === 200) {
+  if (response.data.status === 201) {
     dispatch({
       type: ADD_AUTHOR_SCS,
 
-      payload: dataAuthor,
+      payload: response.data.data,
     });
 
     //dispatch({ type: VALIDATION_CLEAR });
