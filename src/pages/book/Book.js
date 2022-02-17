@@ -118,9 +118,15 @@ function Book() {
           return (
             <>
               {bookData[dataIndex].is_published ? (
-                <CheckCircleOutlineIcon className="published" color="green" />
+                <CheckCircleOutlineIcon
+                  className="published"
+                  style={{ color: "green" }}
+                />
               ) : (
-                <ErrorOutlineIcon className="published" />
+                <ErrorOutlineIcon
+                  className="published"
+                  style={{ color: "red" }}
+                />
               )}
             </>
           );
