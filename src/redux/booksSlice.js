@@ -84,16 +84,18 @@ export const addBook = (dataBook) => async (dispatch) => {
     });
   };
 
-  const response = await addFunc();
-  console.log("response");
-  console.log(response);
-  console.log("response");
+  const response = await addFunc().then((res) => {
+    return res.json();
+  });
+
   if (response.status === 200) {
     dispatch({
       type: ADD_BOOK_SCS,
 
       payload: dataBook,
     });
+
+    console.log(response);
 
     //dispatch({ type: VALIDATION_CLEAR });
 

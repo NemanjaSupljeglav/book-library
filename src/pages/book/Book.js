@@ -352,8 +352,12 @@ function Book() {
       </div>
     </div>
   );
+  const label = { inputProps: { "aria-label": "Switch demo" } };
   return (
     <div className="book-wrapper">
+      <FormControlLabel control={<Switch defaultChecked />} label="Label" />
+      <FormControlLabel disabled control={<Switch />} label="Disabled" />
+      <Switch {...label} defaultChecked />
       <ThemeProvider theme={createTheme()}>
         <Dialogs
           setOpen={setOpen}
