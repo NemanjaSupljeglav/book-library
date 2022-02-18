@@ -22,8 +22,8 @@ import { FormControl } from "@material-ui/core";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "react-switch";
+
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import EditIcon from "@mui/icons-material/Edit";
@@ -353,32 +353,25 @@ function Book() {
           </Select>
         </FormControl>
         {bookId !== "" && (
-          <FormControlLabel
-            value="Publish"
-            control={
-              <Switch
-                checked={isPublished}
-                defaultValue={isPublished}
-                onChange={(event) => {
-                  setIsPublished(event.target.checked);
-                  console.log(isPublished);
-                }}
-                inputProps={{ "aria-label": "controlled" }}
-                label={"Published"}
-              />
-            }
-            label="Publish"
-          />
+          <div
+            onClick={() => {
+              setIsPublished(!isPublished);
+            }}
+            className="switch-button"
+          >
+            <div className="label-switch">Published:</div>
+            <Switch
+              className="react-switch"
+              checked={isPublished}
+              aria-labelledby="neat-label"
+            />
+          </div>
         )}
       </div>
     </div>
   );
-  const label = { inputProps: { "aria-label": "Switch demo" } };
   return (
     <div className="book-wrapper">
-      <FormControlLabel control={<Switch defaultChecked />} label="Label" />
-      <FormControlLabel disabled control={<Switch />} label="Disabled" />
-      <Switch {...label} defaultChecked />
       <ThemeProvider theme={createTheme()}>
         <Dialogs
           setOpen={setOpen}
