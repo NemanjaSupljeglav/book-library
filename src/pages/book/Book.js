@@ -327,15 +327,14 @@ function Book() {
             Category
           </InputLabel>
           <Select
-            labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             variant="standard"
             value={categoryId}
-            label="Category"
             onChange={(event) => {
               setCategoryId(event.target.value);
             }}
             error={categoryId === "" && isValid}
+            label={"Category"}
           >
             {categoryData?.map((data) => {
               return (

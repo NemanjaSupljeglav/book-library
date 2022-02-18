@@ -9,7 +9,6 @@ function TextFieldAtom(props) {
     id,
     name,
     placeholder,
-
     variant,
     multiline,
     style,
@@ -27,12 +26,12 @@ function TextFieldAtom(props) {
         type="text"
         variant={variant}
         onChange={onChange}
-        required
         multiline={multiline}
         style={style}
         error={defaultValue === "" && isValid}
         helperText={defaultValue === "" && isValid ? "Empty" : ""}
         rows={5}
+        label={placeholder}
       />
     </div>
   );
