@@ -5,18 +5,17 @@ import { addCategory } from "../../redux/categorySlice";
 import Button from "../../components/buttons/Button";
 import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
-
+import TextFieldAtom from "../../components/atom/TextField";
 //MUIDataTable
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function Category() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
+  const [isValid, setIsValid] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -56,6 +55,9 @@ function Category() {
     name: name,
     about: about,
   };
+  function checkInput() {
+    name === "" || about === "" ? setIsValid(true) : handleAddNew();
+  }
 
   function handleAddNew() {
     const dataCategory = {
@@ -69,7 +71,7 @@ function Category() {
   const dialogContent = (
     <div>
       <div className="dialog-content-wrapper">
-        <TextField
+        <TextFieldAtom
           autoFocus
           margin="dense"
           id="name"
@@ -77,22 +79,27 @@ function Category() {
           placeholder="Category name"
           type="text"
           variant="standard"
+          defaultValue={name}
           onChange={(event) => {
             setName(event.target.value);
           }}
+          isValid={isValid}
+          error={isValid && name === ""}
         />
 
-        <TextareaAutosize
+        <TextFieldAtom
           autoFocus
           margin="dense"
           id="name"
           name={"About"}
+          defaultValue={about}
           placeholder="Desription"
-          style={{ minWidth: 400, minHeight: 100 }}
           variant="standard"
           onChange={(event) => {
             setAbout(event.target.value);
           }}
+          multiline={true}
+          isValid={isValid}
         />
       </div>
     </div>
@@ -105,8 +112,10 @@ function Category() {
           open={open}
           content={dialogContent}
           dataAuthor={dataAuthor}
-          handleAddNew={handleAddNew}
+          handleAddNew={checkInput}
           title={"Add new category"}
+          PaperProps={{ sx: { width: "280px", height: "full" } }}
+          setIsValide={setIsValid}
         />
         <MUIDataTable
           title={

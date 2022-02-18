@@ -12,17 +12,15 @@ import { getAllAuthor } from "../../redux/authorsSlice";
 import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
 import WarniningDialog from "../../components/dialogs/WarningDialog";
-
+import TextFieldAtom from "../../components/atom/TextField";
 //MUI
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
 
 import { FormControl } from "@material-ui/core";
-import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import InputLabel from "@mui/material/InputLabel";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -42,6 +40,7 @@ function Book() {
   const [bookId, setBookId] = useState("");
   const [isPublished, setIsPublished] = useState(false);
   const [delteBookId, steDelteBookId] = useState(0);
+  const [isValid, setIsValid] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -155,6 +154,7 @@ function Book() {
                     setCategoryId(bookData[dataIndex].category_id);
                     setAuthorId(bookData[dataIndex].author_id);
                     setIsPublished(bookData[dataIndex].is_published);
+                    setIsValid(false);
                     setOpen(true);
                   }}
                 />
@@ -177,7 +177,7 @@ function Book() {
             <>
               {bookData[dataIndex] && (
                 <DeleteOutlineIcon
-                  className="row-edit-table"
+                  className="row-delete-table"
                   onClick={() => {
                     steDelteBookId(bookData[dataIndex].uuid);
                     setOpenDelete(true);
@@ -211,6 +211,15 @@ function Book() {
     setCount(count + 1);
     setOpenDelete(false);
   }
+  function checkInput() {
+    name === "" ||
+    tagline === "" ||
+    categoryId === "" ||
+    authorId === "" ||
+    sorthDesc === ""
+      ? setIsValid(true)
+      : handleAddNew();
+  }
 
   function handleAddNew() {
     const dataBook = {
@@ -226,7 +235,7 @@ function Book() {
       ? dispatch(addBook(dataBook))
       : dispatch(editBook(dataBook, bookId));
 
-    setCount(count + 1);
+    setIsValid(false);
     setOpen(false);
   }
   //dialog content
@@ -236,8 +245,7 @@ function Book() {
   const dialogContent = (
     <div>
       <div className="dialog-content-wrapper">
-        <TextField
-          autoFocus
+        <TextFieldAtom
           margin="dense"
           id="name"
           name={"Book title"}
@@ -249,8 +257,10 @@ function Book() {
             setName(event.target.value);
           }}
           required
+          style={{ width: 350 }}
+          isValid={isValid}
         />
-        <TextareaAutosize
+        <TextFieldAtom
           autoFocus
           margin="dense"
           id="name"
@@ -259,12 +269,14 @@ function Book() {
           type="text"
           defaultValue={sorthDesc}
           variant="standard"
-          style={{ minWidth: 400, minHeight: 100 }}
           onChange={(event) => {
             setSorthDesc(event.target.value);
           }}
+          multiline={true}
+          style={{ width: 350 }}
+          isValid={isValid}
         />
-        <TextField
+        <TextFieldAtom
           autoFocus
           margin="dense"
           id="name"
@@ -277,8 +289,10 @@ function Book() {
             setTagline(event.target.value);
           }}
           required
+          style={{ width: 350 }}
+          isValid={isValid}
         />
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="standard">
           <InputLabel id="demo-simple-select-standard-label">Author</InputLabel>
           <Select
             labelId="demo-simple-select-standard-label"
@@ -289,6 +303,7 @@ function Book() {
             onChange={(event) => {
               setAuthorId(event.target.value);
             }}
+            error={authorId === "" && isValid}
           >
             {authorData?.map((data) => {
               return (
@@ -307,7 +322,7 @@ function Book() {
           </Select>
         </FormControl>
 
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="standard">
           <InputLabel id="demo-simple-select-standard-label">
             Category
           </InputLabel>
@@ -320,6 +335,7 @@ function Book() {
             onChange={(event) => {
               setCategoryId(event.target.value);
             }}
+            error={categoryId === "" && isValid}
           >
             {categoryData?.map((data) => {
               return (
@@ -367,11 +383,13 @@ function Book() {
       <ThemeProvider theme={createTheme()}>
         <Dialogs
           setOpen={setOpen}
+          setIsValide={setIsValid}
           open={open}
           content={dialogContent}
           dataBook={dataBook}
-          handleAddNew={handleAddNew}
+          handleAddNew={checkInput}
           title={bookId === "" ? "Add new book" : "Edit book"}
+          PaperProps={{ sx: { width: "400px", height: "full" } }}
         />
         <WarniningDialog
           setOpenDelete={setOpenDelete}

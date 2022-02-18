@@ -5,7 +5,7 @@ import { addAuthor } from "../../redux/authorsSlice";
 import Button from "../../components/buttons/Button";
 import { getAllAuthor } from "../../redux/authorsSlice";
 import Dialogs from "../../components/dialogs/Dialog";
-
+import TextFieldAtom from "../../components/atom/TextField";
 //MUIDataTable
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
@@ -17,6 +17,7 @@ function Author() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
+  const [isValid, setIsValid] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -56,7 +57,9 @@ function Author() {
     name: name,
     about: about,
   };
-
+  function checkInput() {
+    name === "" || about === "" ? setIsValid(true) : handleAddNew();
+  }
   function handleAddNew() {
     const dataAuthor = {
       name: name,
@@ -69,30 +72,35 @@ function Author() {
   const dialogContent = (
     <div>
       <div className="dialog-content-wrapper">
-        <TextField
+        <TextFieldAtom
           autoFocus
           margin="dense"
           id="name"
           name={"Author name"}
           placeholder="Author name"
           type="text"
+          defaultValue={name}
           variant="standard"
           onChange={(event) => {
             setName(event.target.value);
           }}
+          isValid={isValid}
         />
 
-        <TextareaAutosize
+        <TextFieldAtom
           autoFocus
           margin="dense"
           id="name"
           name={"About"}
           placeholder="About"
-          style={{ minWidth: 400, minHeight: 100 }}
+          style={{ Width: 350 }}
           variant="standard"
+          defaultValue={about}
           onChange={(event) => {
             setAbout(event.target.value);
           }}
+          multiline={true}
+          isValid={isValid}
         />
       </div>
     </div>
@@ -105,8 +113,10 @@ function Author() {
           open={open}
           content={dialogContent}
           dataAuthor={dataAuthor}
-          handleAddNew={handleAddNew}
+          handleAddNew={checkInput}
           title={"Add new author"}
+          PaperProps={{ sx: { width: "280px", height: "full" } }}
+          setIsValide={setIsValid}
         />
         <MUIDataTable
           title={

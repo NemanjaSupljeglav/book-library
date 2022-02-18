@@ -7,6 +7,7 @@ import axios from "axios";
 var URL = require("../../package.json").url;
 
 //TYPES
+
 //GET
 const GET_ALL_AUTHOR_REQ = "auth/GET_ALL_AUTHOR_REQ";
 

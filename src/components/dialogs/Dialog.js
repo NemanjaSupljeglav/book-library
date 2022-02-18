@@ -7,8 +7,17 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "../buttons/Button";
 import "./dialog.css";
 
-function Dialogs({ setOpen, open, content, title, handleAddNew }) {
+function Dialogs({
+  setOpen,
+  open,
+  content,
+  title,
+  handleAddNew,
+  PaperProps,
+  setIsValide,
+}) {
   const handleClose = () => {
+    setIsValide(false);
     setOpen(false);
   };
 
@@ -18,9 +27,9 @@ function Dialogs({ setOpen, open, content, title, handleAddNew }) {
   };
 
   return (
-    <form className="wrapper">
+    <form className="wrapper-dialog">
       <div>
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} PaperProps={PaperProps}>
           <DialogTitle>{title}</DialogTitle>
 
           <DialogContent>{content}</DialogContent>

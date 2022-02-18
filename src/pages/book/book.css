@@ -7,12 +7,15 @@
 }
 .row-edit-table:hover {
   transform: scale(1.5);
-  -moz-box-shadow: 1px 0px 26px 1px rgba(0, 0, 0, 0.75);
   transition-duration: 0.4s;
-  color: maroon;
-  box-shadow: 2px 2px 20px -5px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 2px 2px 20px -5px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 2px 2px 20px -5px rgba(0, 0, 0, 0.75);
+}
+.row-delete-table {
+  cursor: pointer;
+}
+.row-delete-table:hover {
+  transform: scale(1.5);
+  transition-duration: 0.4s;
+  color: red;
 }
 .published {
   margin-left: 25px;
