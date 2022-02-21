@@ -5,6 +5,7 @@ import React from "react";
 // MUI
 import ButtonMUI from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import { style } from "@mui/system";
 // import { makeStyles } from "@material-ui/core/styles";​
 // Router
 
@@ -44,7 +45,6 @@ const Button = (props) => {
       fullWidth={fullWidth}
       type={type}
       datacy={datacy}
-      disabled={disabled}
       style={customStyle}
       classes={classes}
       size={size}

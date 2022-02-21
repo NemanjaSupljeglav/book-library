@@ -133,7 +133,7 @@ function Book() {
       },
     },
     {
-      name: "",
+      name: "Edit",
       label: "",
       property: "id",
       options: {
@@ -165,7 +165,7 @@ function Book() {
       },
     },
     {
-      name: "",
+      name: "Delete",
       label: "",
       property: "id",
       options: {
@@ -211,14 +211,26 @@ function Book() {
     setCount(count + 1);
     setOpenDelete(false);
   }
+  /*
   function checkInput() {
-    name === "" ||
-    tagline === "" ||
-    categoryId === "" ||
-    authorId === "" ||
-    sorthDesc === ""
+    name.trim().length === 0 ||
+    tagline.trim().length === 0 ||
+    categoryId.trim().length === 0 ||
+    authorId.trim().length === 0 ||
+    sorthDesc.trim().length === 0
       ? setIsValid(true)
       : handleAddNew();
+  }
+*/
+  function checkInput(data) {
+    let dataCheck = Object.values(data).filter((item) => /^\s*$/.test(item));
+    return dataCheck.length > 0;
+  }
+
+  function proba() {
+    const arr = "fdfdsdsf";
+
+    console.log("kliknuo");
   }
 
   function handleAddNew() {
@@ -231,16 +243,22 @@ function Book() {
       is_published: isPublished,
     };
 
-    bookId === ""
-      ? dispatch(addBook(dataBook))
-      : dispatch(editBook(dataBook, bookId));
-
-    setIsValid(false);
-    setOpen(false);
+    if (checkInput(dataBook)) {
+      setIsValid(true);
+    } else {
+      bookId === ""
+        ? dispatch(addBook(dataBook))
+        : dispatch(editBook(dataBook, bookId));
+      setIsValid(false);
+      setOpen(false);
+    }
   }
   //dialog content
   const dialogContentDelte = (
-    <h3> Are you sure you want to delete this book?</h3>
+    <div className="content-dialog">
+      {" "}
+      Are you sure you want to delete this book?
+    </div>
   );
   const dialogContent = (
     <div>
@@ -372,6 +390,13 @@ function Book() {
   );
   return (
     <div className="book-wrapper">
+      <button
+        onClick={() => {
+          proba();
+        }}
+      >
+        klikni
+      </button>
       <ThemeProvider theme={createTheme()}>
         <Dialogs
           setOpen={setOpen}
@@ -379,7 +404,7 @@ function Book() {
           open={open}
           content={dialogContent}
           dataBook={dataBook}
-          handleAddNew={checkInput}
+          handleAddNew={handleAddNew}
           title={bookId === "" ? "Add new book" : "Edit book"}
           PaperProps={{ sx: { width: "400px", height: "full" } }}
         />

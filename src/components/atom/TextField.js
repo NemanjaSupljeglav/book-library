@@ -28,8 +28,10 @@ function TextFieldAtom(props) {
         onChange={onChange}
         multiline={multiline}
         style={style}
-        error={defaultValue === "" && isValid}
-        helperText={defaultValue === "" && isValid ? "Empty" : ""}
+        error={/^\s*$/.test(defaultValue) && isValid}
+        helperText={
+          /^\s*$/.test(defaultValue) && isValid ? "Invalid input!" : ""
+        }
         rows={5}
         label={placeholder}
       />

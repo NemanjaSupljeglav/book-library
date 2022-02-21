@@ -41,3 +41,7 @@
   top: 5px;
   cursor: pointer;
 }
+.content-dialog {
+  margin-bottom: -10px;
+  font-size: 20px;
+}

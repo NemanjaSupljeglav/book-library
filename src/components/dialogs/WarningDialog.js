@@ -37,8 +37,16 @@ function Dialogs({
             <Button
               variant="outlined"
               label={"Delete"}
-              startIcon={<DeleteIcon />}
+              startIcon={
+                <DeleteIcon style={{ position: "relative", top: "-5px" }} />
+              }
               onClick={submitHandler}
+              customStyle={{
+                background: "rgb(255, 89, 89)",
+                border: "none",
+                color: "white",
+                "&:hover": { background: "black", color: "red" },
+              }}
             />
           </DialogActions>
         </Dialog>

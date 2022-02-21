@@ -3,9 +3,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-
+import { useDispatch } from "react-redux";
 import Button from "../buttons/Button";
 import "./dialog.css";
+import { bookForEdit } from "../../redux/booksSlice";
 
 function Dialogs({
   setOpen,
@@ -16,9 +17,11 @@ function Dialogs({
   PaperProps,
   setIsValide,
 }) {
+  const dispatch = useDispatch();
   const handleClose = () => {
     setIsValide(false);
     setOpen(false);
+    dispatch(bookForEdit());
   };
 
   const submitHandler = (event) => {

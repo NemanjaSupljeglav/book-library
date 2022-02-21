@@ -1,5 +1,4 @@
 // IMPORTS
-import { faFileWord, faL } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 //import { NotificationManager } from "react-notifications";
 
@@ -32,6 +31,10 @@ const EDIT_BOOK_REQ = "auth/EDIT_BOOK_REQ";
 const EDIT_BOOK_SCS = "auth/EDIT_BOOK_SCS";
 const EDIT_BOOK_FLR = "auth/EDIT_BOOK_FLR";
 
+//ONE BOOK
+
+const ONE_BOOK_ADD = "auth/ONE_BOOK_ADD";
+const ONE_BOOK_DELETE = "auth/ONE_BOOK_DELETE";
 //ACTION GET
 
 export const getAllBooks = () => async (dispatch) => {
@@ -211,6 +214,20 @@ export const editBook = (dataBook, bookId) => async (dispatch) => {
   }
 };
 
+//ACTION EDIT
+
+export const bookForEdit = (bookId) => async (dispatch) => {
+  bookId
+    ? dispatch({
+        type: ONE_BOOK_ADD,
+        payload: bookId,
+      })
+    : dispatch({
+        type: ONE_BOOK_DELETE,
+        payload: bookId,
+      });
+};
+
 /**
 
  * REDUCERS
@@ -221,7 +238,7 @@ const INIT_STATE = {
   loading: false,
   data: [],
   total: 0,
-  addBooks: null,
+  oneBook: null,
 };
 
 export function bookReducer(state = INIT_STATE, action = {}) {
@@ -264,8 +281,6 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: true,
-
-        addBooks: state.addBooks,
       };
 
     case ADD_BOOK_SCS:
@@ -274,9 +289,8 @@ export function bookReducer(state = INIT_STATE, action = {}) {
 
         loading: false,
 
-        addBooks: action.payload,
-
         data: [...state.data, action.payload],
+        oneBook: null,
       };
 
     case ADD_BOOK_FLR:
@@ -284,8 +298,6 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: false,
-
-        addBooks: state.addBooks,
       };
     case DELETE_BOOK_REQ:
       return {
@@ -303,8 +315,8 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         ...state,
         loading: false,
 
-        addBooks: action.payload,
         data: state.data.filter((book) => book.uuid !== action.payload),
+        oneBook: null,
       };
     case DELETE_BOOK_FLR:
       return {
@@ -321,8 +333,6 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: true,
-
-        addBooks: state.addBooks,
       };
 
     case EDIT_BOOK_SCS:
@@ -330,7 +340,6 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         ...state,
         loading: false,
 
-        addBooks: action.payload,
         data: state.data.map((item) => {
           if (item.uuid === action.bookId) {
             item = action.payload;
@@ -338,14 +347,23 @@ export function bookReducer(state = INIT_STATE, action = {}) {
           }
           return item;
         }),
+        oneBook: null,
       };
     case EDIT_BOOK_FLR:
       return {
         ...state,
 
         loading: false,
-
-        addBooks: state.addBooks,
+      };
+    case ONE_BOOK_ADD:
+      return {
+        ...state,
+        oneBook: state.data.filter((book) => book.uuid === action.payload)[0],
+      };
+    case ONE_BOOK_DELETE:
+      return {
+        ...state,
+        oneBook: null,
       };
   }
 }
