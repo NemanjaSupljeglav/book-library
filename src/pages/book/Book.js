@@ -6,6 +6,7 @@ import {
   addBook,
   deleteBook,
   editBook,
+  bookForEdit,
 } from "../../redux/booksSlice";
 import Button from "../../components/buttons/Button";
 import { getAllAuthor } from "../../redux/authorsSlice";
@@ -44,6 +45,11 @@ function Book() {
 
   const dispatch = useDispatch();
 
+  const bookData = useSelector((state) => state.bookReducer.data);
+  const authorData = useSelector((state) => state.authorReducer.data);
+  const categoryData = useSelector((state) => state.categoryReducer.data);
+  const oneBook = useSelector((state) => state.bookReducer.oneBook);
+
   useEffect(() => {
     dispatch(getAllBooks());
   }, []);
@@ -53,9 +59,23 @@ function Book() {
     dispatch(getAllCategory());
   }, []);
 
-  const bookData = useSelector((state) => state.bookReducer.data);
-  const authorData = useSelector((state) => state.authorReducer.data);
-  const categoryData = useSelector((state) => state.categoryReducer.data);
+  useEffect(() => {
+    if (oneBook) {
+      setName(oneBook.name);
+      setTagline(oneBook.tagline);
+      setSorthDesc(oneBook.short_desc);
+      setCategoryId(oneBook.category_id);
+      setAuthorId(oneBook.author_id);
+      setIsPublished(oneBook.is_published);
+    } else {
+      setBookId("");
+      setName("");
+      setTagline("");
+      setSorthDesc("");
+      setCategoryId("");
+      setAuthorId("");
+    }
+  }, [oneBook]);
 
   //MUIDataTable
 
@@ -147,13 +167,9 @@ function Book() {
                 <EditIcon
                   className="row-edit-table"
                   onClick={() => {
+                    dispatch(bookForEdit(bookData[dataIndex].uuid));
                     setBookId(bookData[dataIndex].uuid);
-                    setName(bookData[dataIndex].name);
-                    setTagline(bookData[dataIndex].tagline);
-                    setSorthDesc(bookData[dataIndex].short_desc);
-                    setCategoryId(bookData[dataIndex].category_id);
-                    setAuthorId(bookData[dataIndex].author_id);
-                    setIsPublished(bookData[dataIndex].is_published);
+
                     setIsValid(false);
                     setOpen(true);
                   }}
@@ -211,26 +227,10 @@ function Book() {
     setCount(count + 1);
     setOpenDelete(false);
   }
-  /*
-  function checkInput() {
-    name.trim().length === 0 ||
-    tagline.trim().length === 0 ||
-    categoryId.trim().length === 0 ||
-    authorId.trim().length === 0 ||
-    sorthDesc.trim().length === 0
-      ? setIsValid(true)
-      : handleAddNew();
-  }
-*/
+
   function checkInput(data) {
     let dataCheck = Object.values(data).filter((item) => /^\s*$/.test(item));
     return dataCheck.length > 0;
-  }
-
-  function proba() {
-    const arr = "fdfdsdsf";
-
-    console.log("kliknuo");
   }
 
   function handleAddNew() {
@@ -382,6 +382,7 @@ function Book() {
               className="react-switch"
               checked={isPublished}
               aria-labelledby="neat-label"
+              onChange={() => {}}
             />
           </div>
         )}
@@ -390,13 +391,6 @@ function Book() {
   );
   return (
     <div className="book-wrapper">
-      <button
-        onClick={() => {
-          proba();
-        }}
-      >
-        klikni
-      </button>
       <ThemeProvider theme={createTheme()}>
         <Dialogs
           setOpen={setOpen}
@@ -420,12 +414,6 @@ function Book() {
             <div className="button-add-book">
               <Button
                 onClick={() => {
-                  setBookId("");
-                  setName("");
-                  setTagline("");
-                  setSorthDesc("");
-                  setCategoryId("");
-                  setAuthorId("");
                   setOpen(true);
                 }}
                 label={"add new Book"}
