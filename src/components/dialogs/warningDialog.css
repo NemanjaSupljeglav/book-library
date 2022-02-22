@@ -1,3 +1,16 @@
 .wrappr-warning-dialog {
   display: flex;
+  display: red;
+}
+.title-add-dialog-warning {
+  position: relative;
+  top: -32px;
+  left: -15px;
+}
+.line-dialog-warb {
+  width: 95%;
+  height: 2px;
+  background: #ff764b;
+  margin: auto;
+  margin-bottom: 5px;
 }

@@ -52,13 +52,24 @@ function Dialogs({
             <CancelOutlinedIcon
               style={{
                 position: "absolute",
-                left: "405px",
-                top: "5px",
+                left: "390px",
+                top: "23px",
                 cursor: "pointer",
               }}
               onClick={handleClose}
             />
             <DialogTitle>{title}</DialogTitle>
+            <div
+              className="line-dialog-war"
+              style={{
+                position: "relative",
+                height: "3px",
+                width: "95%",
+                background: "#ff764b",
+                top: "30px",
+                margin: "auto",
+              }}
+            ></div>
             <div
               className="warning-title"
               style={{
@@ -67,22 +78,18 @@ function Dialogs({
             >
               <WarningAmberOutlinedIcon
                 style={{
-                  top: "-5px",
-                  width: "70px",
-                  height: "70px",
+                  position: "relative",
+                  top: "-15px",
+                  width: "30px",
+                  height: "30px",
                   borderRadius: "50%",
                   color: "red",
                   marginLeft: "20px",
                 }}
               />
-              <h2
-                style={{
-                  position: "relative",
-                  top: "5px",
-                }}
-              >
+              <DialogTitle className="title-add-dialog-warning">
                 {titleDelete}
-              </h2>
+              </DialogTitle>
             </div>
             <DialogContent
               style={{

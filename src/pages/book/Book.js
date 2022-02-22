@@ -140,12 +140,12 @@ function Book() {
               {bookData[dataIndex].is_published ? (
                 <CheckCircleOutlineIcon
                   className="published"
-                  style={{ color: "green" }}
+                  style={{ color: "green", marginLeft: "5px" }}
                 />
               ) : (
                 <ErrorOutlineIcon
                   className="published"
-                  style={{ color: "red" }}
+                  style={{ color: "red", marginLeft: "5px" }}
                 />
               )}
             </>
@@ -428,7 +428,7 @@ function Book() {
                 }}
                 label={"add new Book"}
                 variant="outlined"
-                size="small"
+                size="medium"
               />
             </div>
           }

@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch } from "react-redux";
 import Button from "../buttons/Button";
 import "./dialog.css";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { bookForEdit } from "../../redux/booksSlice";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -53,6 +54,15 @@ function Dialogs({
       <div>
         <ThemeProvider theme={theme}>
           <Dialog open={open} onClose={handleClose} PaperProps={PaperProps}>
+            <CancelOutlinedIcon
+              onClick={handleClose}
+              style={{
+                position: "absolute",
+                left: "350px",
+                top: "23px",
+                cursor: "pointer",
+              }}
+            />
             <DialogTitle className="title-add-dialog">{title}</DialogTitle>
             <div className="line-dialog"></div>
             <DialogContent>{content}</DialogContent>
