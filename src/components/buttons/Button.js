@@ -5,6 +5,22 @@ import React from "react";
 // MUI
 import ButtonMUI from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import { makeStyles } from "@mui/styles";
+import { style } from "@mui/system";
+
+const useStyles = makeStyles({
+  addNew: {
+    background: "rgb(222, 222, 222)",
+    border: 0,
+    borderRadius: 3,
+    color: "black",
+    height: "35px",
+    padding: "0 10px",
+    "&:hover": { background: "rgb(179, 179, 179)", border: "none" },
+    transition: "0,5s",
+    position: "relative",
+  },
+});
 // import { makeStyles } from "@material-ui/core/styles";​
 // Router
 
@@ -28,11 +44,10 @@ const Button = (props) => {
     disabled,
     customStyle,
     startIcon,
-    classes,
     size,
-    className,
   } = props;
 
+  const classes = useStyles();
   return (
     <ButtonMUI
       disabled={disabled}
@@ -47,7 +62,7 @@ const Button = (props) => {
       style={customStyle}
       classes={classes}
       size={size}
-      className={className}
+      className={classes.addNew}
     >
       <div style={{ fontSize: "15px", position: "relative", top: "3px" }}>
         {label}

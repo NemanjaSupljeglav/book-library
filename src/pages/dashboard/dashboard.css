@@ -101,7 +101,7 @@ nav a.is-active {
     position: absolute;
     width: 210px;
     background: whitesmoke;
-    z-index: 99;
+    z-index: 999;
     margin-top: 3rem;
     float: right;
     right: 0;

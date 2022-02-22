@@ -104,6 +104,7 @@ function Category() {
       </div>
     </div>
   );
+
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>

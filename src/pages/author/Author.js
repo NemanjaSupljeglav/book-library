@@ -10,8 +10,6 @@ import TextFieldAtom from "../../components/atom/TextField";
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 function Author() {
   const [open, setOpen] = useState(false);
@@ -105,6 +103,7 @@ function Author() {
       </div>
     </div>
   );
+
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>

@@ -29,22 +29,6 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  addNew: {
-    background: "rgb(222, 222, 222)",
-    border: 0,
-    borderRadius: 3,
-    color: "black",
-    height: "35px",
-    padding: "0 10px",
-    "&:hover": { background: "rgb(179, 179, 179)", border: "none" },
-    transition: "0,5s",
-
-    position: "relative",
-  },
-});
 
 function Book() {
   const [open, setOpen] = useState(false);
@@ -414,7 +398,7 @@ function Book() {
       </div>
     </div>
   );
-  const classes = useStyles();
+
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
@@ -446,7 +430,6 @@ function Book() {
                 label={"add new Book"}
                 variant="outlined"
                 size="medium"
-                className={classes.addNew}
               />
             </div>
           }

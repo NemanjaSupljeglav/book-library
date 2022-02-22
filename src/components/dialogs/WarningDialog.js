@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     color: "black",
     height: "35px",
     padding: "0 30px",
-    transition: "0.5s",
+    transition: "0.7s",
     position: "relative",
     "&:hover": {
       background: "rgb(217, 217, 217)",
@@ -116,6 +116,12 @@ function Dialogs({
               label={"Delete"}
               onClick={submitHandler}
               className={classes.delete}
+              customStyle={{
+                background: "rgb(255, 89, 89)",
+                "&:hover": {
+                  background: "rgb(217, 217, 217)",
+                },
+              }}
             />
           </DialogActions>
         </Dialog>
