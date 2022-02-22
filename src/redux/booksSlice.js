@@ -173,16 +173,25 @@ export const editBook = (dataBook, bookId) => async (dispatch) => {
   dispatch({ type: EDIT_BOOK_REQ });
 
   const addFunc = async () => {
-    return fetch(`${URL}/book/${bookId}`, {
-      method: "PATCH",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+    return axios
+      .patch(`${URL}/book/${bookId}`, {
+        name: dataBook.name,
+        tagline: dataBook.tagline,
+        category_id: dataBook.category_id,
+        author_id: dataBook.author_id,
+        short_desc: dataBook.short_desc,
+        is_published: dataBook.is_published,
+      })
 
-      body: JSON.stringify(dataBook),
-    });
+      .then((response) => {
+        //checkToken();
+        return response;
+      })
+
+      .catch((error) => {
+        //checkToken();
+        return console.log(error.message);
+      });
   };
 
   const response = await addFunc();
@@ -191,7 +200,7 @@ export const editBook = (dataBook, bookId) => async (dispatch) => {
     dispatch({
       type: EDIT_BOOK_SCS,
 
-      payload: dataBook,
+      payload: response.data.data,
 
       bookId: bookId,
     });

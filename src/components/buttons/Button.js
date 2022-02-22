@@ -22,7 +22,6 @@ const Button = (props) => {
     label,
     onClick,
     color,
-    goTo,
     icon,
     fullWidth,
     type,

@@ -169,7 +169,6 @@ function Book() {
                   onClick={() => {
                     dispatch(bookForEdit(bookData[dataIndex].uuid));
                     setBookId(bookData[dataIndex].uuid);
-
                     setIsValid(false);
                     setOpen(true);
                   }}
@@ -211,7 +210,7 @@ function Book() {
   const options = {
     print: false,
     viewColumns: false,
-    selectableRows: false,
+    selectableRows: "none",
   };
   const dataBook = {
     name: name,
@@ -408,6 +407,7 @@ function Book() {
           contentDelte={dialogContentDelte}
           delteBookId={delteBookId}
           handleDelete={handleDelete}
+          titleDelete="Confirm Delete"
         />
         <MUIDataTable
           title={
