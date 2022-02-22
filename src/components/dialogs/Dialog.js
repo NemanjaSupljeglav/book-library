@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     color: "black",
     height: "35px",
     padding: "0 10px",
-    "&:hover": { background: "rgb(179, 179, 179)" },
+    "&:hover": { background: "rgb(179, 179, 179)", border: "none" },
     transition: "0,5s",
     position: "relative",
   },

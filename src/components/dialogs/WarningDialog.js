@@ -16,7 +16,11 @@ const useStyles = makeStyles({
     color: "white",
     height: "35px",
     padding: "0 30px",
-    "&:hover": { color: "white", background: "rgb(237, 45, 31)" },
+    "&:hover": {
+      color: "white",
+      background: "rgb(237, 45, 31)",
+      border: "none",
+    },
     transition: "0,5s",
     position: "relative",
   },
@@ -27,8 +31,12 @@ const useStyles = makeStyles({
     color: "black",
     height: "35px",
     padding: "0 30px",
-    transition: "5s",
+    transition: "0.5s",
     position: "relative",
+    "&:hover": {
+      background: "rgb(217, 217, 217)",
+      border: "none",
+    },
   },
 });
 function Dialogs({
