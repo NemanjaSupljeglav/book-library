@@ -45,3 +45,6 @@
   margin-bottom: -10px;
   font-size: 20px;
 }
+.edit-icon:hover {
+  border: 50%;
+}

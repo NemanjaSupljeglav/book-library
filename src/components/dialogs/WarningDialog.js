@@ -6,7 +6,31 @@ import DialogTitle from "@mui/material/DialogTitle";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import Button from "../buttons/Button";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import { makeStyles } from "@mui/styles";
 import "./warningDialog.css";
+const useStyles = makeStyles({
+  delete: {
+    background: "rgb(255, 89, 89)",
+    border: 0,
+    borderRadius: 3,
+    color: "white",
+    height: "35px",
+    padding: "0 30px",
+    "&:hover": { color: "white", background: "rgb(237, 45, 31)" },
+    transition: "0,5s",
+    position: "relative",
+  },
+  cancle: {
+    background: "white",
+    border: "2px",
+    borderRadius: 3,
+    color: "black",
+    height: "35px",
+    padding: "0 30px",
+    transition: "5s",
+    position: "relative",
+  },
+});
 function Dialogs({
   setOpenDelete,
   openDelte,
@@ -23,7 +47,7 @@ function Dialogs({
     event.preventDefault();
     handleDelete();
   };
-
+  const classes = useStyles();
   return (
     <form className="wrapper">
       <div className="wrappr-warning-dialog">
@@ -72,18 +96,18 @@ function Dialogs({
             {contentDelte}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} label={"Cancel"} variant="outlined" />
+            <Button
+              onClick={handleClose}
+              label={"Cancel"}
+              variant="outlined"
+              className={classes.cancle}
+            />
 
             <Button
               variant="outlined"
               label={"Delete"}
               onClick={submitHandler}
-              customStyle={{
-                background: "rgb(255, 89, 89)",
-                border: "none",
-                color: "white",
-                "&:hover": { background: "black", color: "RGB(255, 82, 82)" },
-              }}
+              className={classes.delete}
             />
           </DialogActions>
         </Dialog>

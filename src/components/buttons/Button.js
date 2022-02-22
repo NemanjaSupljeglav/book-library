@@ -5,7 +5,6 @@ import React from "react";
 // MUI
 import ButtonMUI from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import { style } from "@mui/system";
 // import { makeStyles } from "@material-ui/core/styles";​
 // Router
 
@@ -31,6 +30,7 @@ const Button = (props) => {
     startIcon,
     classes,
     size,
+    className,
   } = props;
 
   return (
@@ -47,6 +47,7 @@ const Button = (props) => {
       style={customStyle}
       classes={classes}
       size={size}
+      className={className}
     >
       {label}
     </ButtonMUI>

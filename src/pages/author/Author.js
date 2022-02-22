@@ -51,7 +51,7 @@ function Author() {
   const options = {
     print: false,
     viewColumns: false,
-    selectableRows: false,
+    selectableRows: "none",
   };
   const dataAuthor = {
     name: name,

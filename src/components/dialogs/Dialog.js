@@ -7,7 +7,21 @@ import { useDispatch } from "react-redux";
 import Button from "../buttons/Button";
 import "./dialog.css";
 import { bookForEdit } from "../../redux/booksSlice";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles({
+  addNew: {
+    background: "rgb(222, 222, 222)",
+    border: 0,
+    borderRadius: 3,
+    color: "black",
+    height: "35px",
+    padding: "0 10px",
+    "&:hover": { background: "rgb(179, 179, 179)" },
+    transition: "0,5s",
+    position: "relative",
+  },
+});
 function Dialogs({
   setOpen,
   open,
@@ -28,7 +42,7 @@ function Dialogs({
     event.preventDefault();
     handleAddNew();
   };
-
+  const classes = useStyles();
   return (
     <form className="wrapper-dialog">
       <div>
@@ -37,13 +51,18 @@ function Dialogs({
 
           <DialogContent>{content}</DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} label={"Cancel"} variant="outlined" />
+            <Button
+              onClick={handleClose}
+              label={"Cancel"}
+              variant="outlined"
+              className={classes.addNew}
+            />
 
             <Button
               onClick={submitHandler}
               label={"Confirm"}
               variant="outlined"
-              ž
+              className={classes.addNew}
             />
           </DialogActions>
         </Dialog>

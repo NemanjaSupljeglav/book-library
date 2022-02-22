@@ -18,17 +18,33 @@ import TextFieldAtom from "../../components/atom/TextField";
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-
+import IconButton from "@mui/material/IconButton";
 import { FormControl } from "@material-ui/core";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Switch from "react-switch";
-
+import Tooltip from "@mui/material/Tooltip";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  addNew: {
+    background: "rgb(222, 222, 222)",
+    border: 0,
+    borderRadius: 3,
+    color: "black",
+    height: "35px",
+    padding: "0 10px",
+    "&:hover": { background: "rgb(179, 179, 179)" },
+    transition: "0,5s",
+    position: "relative",
+  },
+});
+
 function Book() {
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -164,15 +180,20 @@ function Book() {
           return (
             <>
               {bookData[dataIndex] && (
-                <EditIcon
-                  className="row-edit-table"
+                <Tooltip
+                  title="Edit"
                   onClick={() => {
                     dispatch(bookForEdit(bookData[dataIndex].uuid));
                     setBookId(bookData[dataIndex].uuid);
                     setIsValid(false);
                     setOpen(true);
                   }}
-                />
+                  className="edit-icon"
+                >
+                  <IconButton>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
               )}
             </>
           );
@@ -191,13 +212,17 @@ function Book() {
           return (
             <>
               {bookData[dataIndex] && (
-                <DeleteOutlineIcon
-                  className="row-delete-table"
+                <Tooltip
+                  title="Delete"
                   onClick={() => {
                     steDelteBookId(bookData[dataIndex].uuid);
                     setOpenDelete(true);
                   }}
-                />
+                >
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
               )}
             </>
           );
@@ -388,6 +413,7 @@ function Book() {
       </div>
     </div>
   );
+  const classes = useStyles();
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
@@ -419,6 +445,7 @@ function Book() {
                 label={"add new Book"}
                 variant="outlined"
                 size="medium"
+                className={classes.addNew}
               />
             </div>
           }
