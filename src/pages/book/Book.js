@@ -265,7 +265,6 @@ function Book() {
   //dialog content
   const dialogContentDelte = (
     <div className="content-dialog">
-      {" "}
       Are you sure you want to delete this book?
     </div>
   );
@@ -429,7 +428,7 @@ function Book() {
                 }}
                 label={"add new Book"}
                 variant="outlined"
-                size="medium"
+                size="small"
               />
             </div>
           }

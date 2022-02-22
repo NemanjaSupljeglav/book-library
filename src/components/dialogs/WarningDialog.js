@@ -6,36 +6,25 @@ import DialogTitle from "@mui/material/DialogTitle";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import Button from "../buttons/Button";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { makeStyles } from "@mui/styles";
 import "./warningDialog.css";
-const useStyles = makeStyles({
-  delete: {
-    background: "rgb(255, 89, 89)",
-    border: 0,
-    borderRadius: 3,
-    color: "white",
-    height: "35px",
-    padding: "0 30px",
-    "&:hover": {
-      color: "white",
-      background: "rgb(237, 45, 31)",
-      border: "none",
-    },
-    transition: "0,5s",
-    position: "relative",
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  status: {
+    danger: "#e53e3e",
   },
-  cancle: {
-    background: "white",
-    border: "2px",
-    borderRadius: 3,
-    color: "black",
-    height: "35px",
-    padding: "0 30px",
-    transition: "0.7s",
-    position: "relative",
-    "&:hover": {
-      background: "rgb(217, 217, 217)",
-      border: "none",
+  palette: {
+    primary: {
+      main: "#0971f1",
+      darker: "#053e85",
+    },
+    confirm: {
+      main: "#ff764b",
+      contrastText: "#fff",
+    },
+    cancle: {
+      main: "#ff764b",
+      contrastText: "#fff",
     },
   },
 });
@@ -55,77 +44,72 @@ function Dialogs({
     event.preventDefault();
     handleDelete();
   };
-  const classes = useStyles();
   return (
     <form className="wrapper">
-      <div className="wrappr-warning-dialog">
-        <Dialog open={openDelte} onClose={handleClose}>
-          <CancelOutlinedIcon
-            style={{
-              position: "absolute",
-              left: "405px",
-              top: "5px",
-              cursor: "pointer",
-            }}
-            onClick={handleClose}
-          />
-          <DialogTitle>{title}</DialogTitle>
-          <div
-            className="warning-title"
-            style={{
-              display: "flex",
-            }}
-          >
-            <WarningAmberOutlinedIcon
+      <ThemeProvider theme={theme}>
+        <div className="wrappr-warning-dialog">
+          <Dialog open={openDelte} onClose={handleClose}>
+            <CancelOutlinedIcon
               style={{
-                top: "-5px",
-                width: "50px",
-                height: "50px",
-                borderRadius: "50%",
-                color: "rgb(255, 89, 89)",
-                marginLeft: "20px",
+                position: "absolute",
+                left: "405px",
+                top: "5px",
+                cursor: "pointer",
               }}
+              onClick={handleClose}
             />
-            <h2
+            <DialogTitle>{title}</DialogTitle>
+            <div
+              className="warning-title"
               style={{
-                position: "relative",
-                top: "-12px",
+                display: "flex",
               }}
             >
-              {titleDelete}
-            </h2>
-          </div>
-          <DialogContent
-            style={{
-              position: "relative",
-              top: "-25px",
-            }}
-          >
-            {contentDelte}
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={handleClose}
-              label={"Cancel"}
-              variant="outlined"
-              className={classes.cancle}
-            />
-
-            <Button
-              variant="outlined"
-              label={"Delete"}
-              onClick={submitHandler}
-              className={classes.delete}
-              customStyle={{
-                background: "rgb(255, 89, 89)",
-                "&:hover": {
-                  background: "rgb(217, 217, 217)",
-                },
+              <WarningAmberOutlinedIcon
+                style={{
+                  top: "-5px",
+                  width: "70px",
+                  height: "70px",
+                  borderRadius: "50%",
+                  color: "red",
+                  marginLeft: "20px",
+                }}
+              />
+              <h2
+                style={{
+                  position: "relative",
+                  top: "5px",
+                }}
+              >
+                {titleDelete}
+              </h2>
+            </div>
+            <DialogContent
+              style={{
+                position: "relative",
+                top: "-15px",
               }}
-            />
-          </DialogActions>
-        </Dialog>
-      </div>
+            >
+              {contentDelte}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                label={"Cancel"}
+                variant="outlined"
+                color="cancle"
+              />
+
+              <Button
+                label={"Delete"}
+                onClick={submitHandler}
+                variant="contained"
+                color="confirm"
+              />
+            </DialogActions>
+          </Dialog>
+        </div>
+      </ThemeProvider>
     </form>
   );
 }

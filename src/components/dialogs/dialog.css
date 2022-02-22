@@ -10,3 +10,14 @@
   position: relative;
   top: 10px;
 }
+.line-dialog {
+  width: 95%;
+  height: 2px;
+  background: #ff764b;
+  margin: auto;
+  margin-bottom: 5px;
+}
+.title-add-dialog {
+  position: relative;
+  top: 6px;
+}

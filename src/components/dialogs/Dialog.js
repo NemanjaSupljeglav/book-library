@@ -7,19 +7,25 @@ import { useDispatch } from "react-redux";
 import Button from "../buttons/Button";
 import "./dialog.css";
 import { bookForEdit } from "../../redux/booksSlice";
-import { makeStyles } from "@mui/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const useStyles = makeStyles({
-  addNew: {
-    background: "rgb(222, 222, 222)",
-    border: 0,
-    borderRadius: 3,
-    color: "black",
-    height: "35px",
-    padding: "0 10px",
-    "&:hover": { background: "rgb(179, 179, 179)", border: "none" },
-    transition: "0,5s",
-    position: "relative",
+const theme = createTheme({
+  status: {
+    danger: "#e53e3e",
+  },
+  palette: {
+    primary: {
+      main: "#0971f1",
+      darker: "#053e85",
+    },
+    confirm: {
+      main: "#ff764b",
+      contrastText: "#fff",
+    },
+    cancle: {
+      main: "#ff764b",
+      contrastText: "#fff",
+    },
   },
 });
 function Dialogs({
@@ -42,30 +48,32 @@ function Dialogs({
     event.preventDefault();
     handleAddNew();
   };
-  const classes = useStyles();
   return (
     <form className="wrapper-dialog">
       <div>
-        <Dialog open={open} onClose={handleClose} PaperProps={PaperProps}>
-          <DialogTitle>{title}</DialogTitle>
+        <ThemeProvider theme={theme}>
+          <Dialog open={open} onClose={handleClose} PaperProps={PaperProps}>
+            <DialogTitle className="title-add-dialog">{title}</DialogTitle>
+            <div className="line-dialog"></div>
+            <DialogContent>{content}</DialogContent>
 
-          <DialogContent>{content}</DialogContent>
-          <DialogActions>
-            <Button
-              onClick={handleClose}
-              label={"Cancel"}
-              variant="outlined"
-              className={classes.addNew}
-            />
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                label={"Cancel"}
+                variant="outlined"
+                color="cancle"
+              />
 
-            <Button
-              onClick={submitHandler}
-              label={"Confirm"}
-              variant="outlined"
-              className={classes.addNew}
-            />
-          </DialogActions>
-        </Dialog>
+              <Button
+                onClick={submitHandler}
+                label={"Confirm"}
+                variant="contained"
+                color="confirm"
+              />
+            </DialogActions>
+          </Dialog>
+        </ThemeProvider>
       </div>
     </form>
   );
