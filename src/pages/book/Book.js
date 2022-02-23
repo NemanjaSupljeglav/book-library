@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBooks, deleteBook, bookForEdit } from "../../redux/booksSlice";
-import { getAllAuthor } from "../../redux/authorsSlice";
-import { getAllCategory } from "../../redux/categorySlice";
 import WarniningDialog from "../../components/dialogs/WarningDialog";
 import BookModal from "./BookModal";
 //MUI
@@ -20,16 +18,9 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 function Book() {
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [name, setName] = useState("");
-  const [tagline, setTagline] = useState("");
-  const [categoryId, setCategoryId] = useState(0);
-  const [authorId, setAuthorId] = useState(0);
-  const [sorthDesc, setSorthDesc] = useState("");
   const [count, setCount] = useState(0);
   const [bookId, setBookId] = useState("");
-  const [isPublished, setIsPublished] = useState(false);
   const [delteBookId, steDelteBookId] = useState(0);
-  const [isValid, setIsValid] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -39,11 +30,6 @@ function Book() {
 
   useEffect(() => {
     dispatch(getAllBooks());
-  }, []);
-
-  useEffect(() => {
-    dispatch(getAllAuthor());
-    dispatch(getAllCategory());
   }, []);
 
   //MUIDataTable
@@ -138,7 +124,7 @@ function Book() {
                   onClick={() => {
                     dispatch(bookForEdit(bookData[dataIndex].uuid));
                     setBookId(bookData[dataIndex].uuid);
-                    setIsValid(false);
+
                     setOpen(true);
                   }}
                   className="edit-icon"

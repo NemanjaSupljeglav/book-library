@@ -42,6 +42,7 @@ function Dialog({
           <DialogMUI open={open} onClose={handleClose} PaperProps={PaperProps}>
             <CancelOutlinedIcon
               onClick={handleClose}
+              className="close-icon"
               style={{
                 position: "absolute",
                 right: "15px",

@@ -299,6 +299,7 @@ export function bookReducer(state = INIT_STATE, action = {}) {
         loading: false,
 
         data: [...state.data, action.payload],
+
         oneBook: null,
       };
 
