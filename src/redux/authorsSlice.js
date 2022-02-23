@@ -117,7 +117,6 @@ const INIT_STATE = {
   loading: false,
   data: [],
   total: 0,
-  addAuthor: null,
 };
 
 export function authorReducer(state = INIT_STATE, action = {}) {
@@ -160,8 +159,6 @@ export function authorReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: true,
-
-        addAuthor: state.addAuthor,
       };
 
     case ADD_AUTHOR_SCS:
@@ -169,8 +166,6 @@ export function authorReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: false,
-
-        addAuthor: action.payload,
 
         data: [...state.data, action.payload],
       };
@@ -180,8 +175,6 @@ export function authorReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: false,
-
-        addAuthor: state.addAuthor,
       };
   }
 }
