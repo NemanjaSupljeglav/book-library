@@ -75,7 +75,7 @@ nav a {
 }
 
 nav a.is-active {
-  color: maroon;
+  color: #ff764b;
 }
 
 .container {
@@ -88,7 +88,7 @@ nav a.is-active {
     display: none;
   }
   nav a.is-active {
-    color: maroon;
+    color: #ff764b;
   }
 }
 
@@ -108,7 +108,7 @@ nav a.is-active {
     height: 100vh;
     transition: all ease-in-out 0.3s;
     align-self: flex-start;
-    border-top: 2px solid maroon;
+    border-top: 2px solid #ff764b;
     display: flex;
     justify-content: center;
   }

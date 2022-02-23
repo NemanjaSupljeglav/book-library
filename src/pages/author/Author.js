@@ -6,6 +6,9 @@ import Button from "../../components/buttons/Button";
 import { getAllAuthor } from "../../redux/authorsSlice";
 import Dialogs from "../../components/dialogs/Dialog";
 import TextFieldAtom from "../../components/atom/TextField";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 //MUIDataTable
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
@@ -120,14 +123,17 @@ function Author() {
         <MUIDataTable
           title={
             <div className="button-add-book">
-              <Button
+              <Tooltip
+                title="Add new author"
                 onClick={() => {
                   setOpen(true);
                 }}
-                label={"add new Author"}
-                variant="outlined"
-                size="medium"
-              />
+                className="edit-icon"
+              >
+                <IconButton>
+                  <AddCircleOutlineIcon />
+                </IconButton>
+              </Tooltip>
             </div>
           }
           columns={columns}

@@ -8,7 +8,6 @@ import {
   editBook,
   bookForEdit,
 } from "../../redux/booksSlice";
-import Button from "../../components/buttons/Button";
 import { getAllAuthor } from "../../redux/authorsSlice";
 import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
@@ -29,7 +28,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 function Book() {
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -422,14 +421,17 @@ function Book() {
         <MUIDataTable
           title={
             <div className="button-add-book">
-              <Button
+              <Tooltip
+                title="Add new book"
                 onClick={() => {
                   setOpen(true);
                 }}
-                label={"add new Book"}
-                variant="outlined"
-                size="medium"
-              />
+                className="edit-icon"
+              >
+                <IconButton>
+                  <AddCircleOutlineIcon />
+                </IconButton>
+              </Tooltip>
             </div>
           }
           columns={columns}

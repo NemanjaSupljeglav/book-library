@@ -58,9 +58,10 @@ function Dialogs({
               onClick={handleClose}
               style={{
                 position: "absolute",
-                left: "350px",
+                right: "15px",
                 top: "23px",
                 cursor: "pointer",
+                zIndex: "99999",
               }}
             />
             <DialogTitle className="title-add-dialog">{title}</DialogTitle>
