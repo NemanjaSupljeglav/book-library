@@ -1,13 +1,11 @@
 import * as React from "react";
-import Dialog from "@mui/material/Dialog";
+import DialogMUI from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useDispatch } from "react-redux";
 import Button from "../buttons/Button";
 import "./dialog.css";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { bookForEdit } from "../../redux/booksSlice";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -29,31 +27,19 @@ const theme = createTheme({
     },
   },
 });
-function Dialogs({
-  setOpen,
+function Dialog({
   open,
   content,
   title,
-  handleAddNew,
   PaperProps,
-  setIsValide,
+  submitHandler,
+  handleClose,
 }) {
-  const dispatch = useDispatch();
-  const handleClose = () => {
-    setIsValide(false);
-    setOpen(false);
-    dispatch(bookForEdit());
-  };
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    handleAddNew();
-  };
   return (
     <form className="wrapper-dialog">
       <div>
         <ThemeProvider theme={theme}>
-          <Dialog open={open} onClose={handleClose} PaperProps={PaperProps}>
+          <DialogMUI open={open} onClose={handleClose} PaperProps={PaperProps}>
             <CancelOutlinedIcon
               onClick={handleClose}
               style={{
@@ -83,11 +69,11 @@ function Dialogs({
                 color="confirm"
               />
             </DialogActions>
-          </Dialog>
+          </DialogMUI>
         </ThemeProvider>
       </div>
     </form>
   );
 }
 
-export default Dialogs;
+export default Dialog;

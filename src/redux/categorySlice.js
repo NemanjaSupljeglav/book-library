@@ -131,7 +131,6 @@ const INIT_STATE = {
   loading: false,
   data: [],
   total: 0,
-  addCategory: null,
 };
 
 export function categoryReducer(state = INIT_STATE, action = {}) {
@@ -174,8 +173,6 @@ export function categoryReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: true,
-
-        addCategory: state.addCategory,
       };
 
     case ADD_CATEGORY_SCS:
@@ -183,8 +180,6 @@ export function categoryReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: false,
-
-        addCategory: action.payload,
 
         data: [...state.data, action.payload],
       };
@@ -194,8 +189,6 @@ export function categoryReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: false,
-
-        addCategory: state.addCategory,
       };
   }
 }

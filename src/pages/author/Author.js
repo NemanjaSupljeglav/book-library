@@ -24,7 +24,7 @@ function Author() {
 
   useEffect(() => {
     dispatch(getAllAuthor());
-  }, [open]);
+  }, []);
 
   const authorData = useSelector((state) => state.authorReducer.data);
 
@@ -58,17 +58,6 @@ function Author() {
     name: name,
     about: about,
   };
-  function checkInput() {
-    name === "" || about === "" ? setIsValid(true) : handleAddNew();
-  }
-  function handleAddNew() {
-    const dataAuthor = {
-      name: name,
-      about: about,
-    };
-    dispatch(addAuthor(dataAuthor));
-    setOpen(false);
-  }
 
   const dialogContent = (
     <div>
@@ -106,7 +95,32 @@ function Author() {
       </div>
     </div>
   );
+  function checkInput(data) {
+    let dataCheck = Object.values(data).filter((item) => /^\s*$/.test(item));
+    return dataCheck.length > 0;
+  }
 
+  function handleAddNew(event) {
+    event.preventDefault();
+    const dataAuthor = {
+      name: name,
+      about: about,
+    };
+
+    if (checkInput(dataAuthor)) {
+      setIsValid(true);
+    } else {
+      dispatch(addAuthor(dataAuthor));
+      setOpen(false);
+      setName("");
+      setAbout("");
+    }
+  }
+
+  const handleClose = () => {
+    setIsValid(false);
+    setOpen(false);
+  };
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
@@ -115,10 +129,11 @@ function Author() {
           open={open}
           content={dialogContent}
           dataAuthor={dataAuthor}
-          handleAddNew={checkInput}
           title={"Add new author"}
           PaperProps={{ sx: { width: "280px", height: "full" } }}
           setIsValide={setIsValid}
+          handleClose={handleClose}
+          submitHandler={handleAddNew}
         />
         <MUIDataTable
           title={

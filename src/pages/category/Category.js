@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./category.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addCategory } from "../../redux/categorySlice";
-import Button from "../../components/buttons/Button";
 import { getAllCategory } from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
 import TextFieldAtom from "../../components/atom/TextField";
@@ -59,18 +58,6 @@ function Category() {
     name: name,
     about: about,
   };
-  function checkInput() {
-    name === "" || about === "" ? setIsValid(true) : handleAddNew();
-  }
-
-  function handleAddNew() {
-    const dataCategory = {
-      name: name,
-      short_desc: about,
-    };
-    dispatch(addCategory(dataCategory));
-    setOpen(false);
-  }
 
   const dialogContent = (
     <div>
@@ -108,7 +95,33 @@ function Category() {
       </div>
     </div>
   );
+  function checkInput(data) {
+    let dataCheck = Object.values(data).filter((item) => /^\s*$/.test(item));
+    return dataCheck.length > 0;
+  }
 
+  function handleAddNew(event) {
+    event.preventDefault();
+    const dataAuthor = {
+      name: name,
+      short_desc: about,
+    };
+
+    if (checkInput(dataAuthor)) {
+      setIsValid(true);
+    } else {
+      dispatch(addCategory(dataAuthor));
+      setOpen(false);
+      setIsValid(false);
+      setName("");
+      setAbout("");
+    }
+  }
+
+  const handleClose = () => {
+    setIsValid(false);
+    setOpen(false);
+  };
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
@@ -117,10 +130,11 @@ function Category() {
           open={open}
           content={dialogContent}
           dataAuthor={dataAuthor}
-          handleAddNew={checkInput}
+          handleAddNew={handleAddNew}
           title={"Add new category"}
+          handleClose={handleClose}
+          submitHandler={handleAddNew}
           PaperProps={{ sx: { width: "280px", height: "full" } }}
-          setIsValide={setIsValid}
         />
         <MUIDataTable
           title={

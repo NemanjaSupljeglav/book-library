@@ -41,7 +41,7 @@ const Button = (props) => {
         size={size}
         className={className}
       >
-        <div style={{ fontSize: "15px", position: "relative", top: "0px" }}>
+        <div style={{ fontSize: "15px", position: "relative", top: "3px" }}>
           <div style={{ fontWeight: "bold" }}>{label}</div>
         </div>
       </ButtonMUI>

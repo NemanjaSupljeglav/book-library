@@ -1,7 +1,7 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
+import TextFieldMUI from "@mui/material/TextField";
 
-function TextFieldAtom(props) {
+function TextField(props) {
   const {
     defaultValue,
     onChange,
@@ -17,7 +17,7 @@ function TextFieldAtom(props) {
 
   return (
     <div className="textField">
-      <TextField
+      <TextFieldMUI
         margin={margin}
         id={id}
         name={name}
@@ -39,4 +39,4 @@ function TextFieldAtom(props) {
   );
 }
 
-export default TextFieldAtom;
+export default TextField;
