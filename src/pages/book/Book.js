@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getAllBooks,
-  addBook,
-  deleteBook,
-  editBook,
-  bookForEdit,
-} from "../../redux/booksSlice";
+import { getAllBooks, deleteBook, bookForEdit } from "../../redux/booksSlice";
 import { getAllAuthor } from "../../redux/authorsSlice";
 import { getAllCategory } from "../../redux/categorySlice";
 import WarniningDialog from "../../components/dialogs/WarningDialog";
@@ -42,7 +36,6 @@ function Book() {
   const bookData = useSelector((state) => state.bookReducer.data);
   const authorData = useSelector((state) => state.authorReducer.data);
   const categoryData = useSelector((state) => state.categoryReducer.data);
-  const oneBook = useSelector((state) => state.bookReducer.oneBook);
 
   useEffect(() => {
     dispatch(getAllBooks());
@@ -52,24 +45,6 @@ function Book() {
     dispatch(getAllAuthor());
     dispatch(getAllCategory());
   }, []);
-
-  useEffect(() => {
-    if (oneBook) {
-      setName(oneBook.name);
-      setTagline(oneBook.tagline);
-      setSorthDesc(oneBook.short_desc);
-      setCategoryId(oneBook.category_id);
-      setAuthorId(oneBook.author_id);
-      setIsPublished(oneBook.is_published);
-    } else {
-      setBookId("");
-      setName("");
-      setTagline("");
-      setSorthDesc("");
-      setCategoryId("");
-      setAuthorId("");
-    }
-  }, [oneBook]);
 
   //MUIDataTable
 
@@ -215,14 +190,6 @@ function Book() {
     viewColumns: false,
     selectableRows: "none",
   };
-  const dataBook = {
-    name: name,
-    tagline: tagline,
-    category_id: categoryId,
-    author_id: authorId,
-    short_desc: sorthDesc,
-    is_published: isPublished,
-  };
 
   function handleDelete() {
     dispatch(deleteBook(delteBookId));
@@ -230,31 +197,6 @@ function Book() {
     setOpenDelete(false);
   }
 
-  function checkInput(data) {
-    let dataCheck = Object.values(data).filter((item) => /^\s*$/.test(item));
-    return dataCheck.length > 0;
-  }
-
-  function handleAddNew() {
-    const dataBook = {
-      name: name,
-      tagline: tagline,
-      category_id: categoryId,
-      author_id: authorId,
-      short_desc: sorthDesc,
-      is_published: isPublished,
-    };
-
-    if (checkInput(dataBook)) {
-      setIsValid(true);
-    } else {
-      bookId === ""
-        ? dispatch(addBook(dataBook))
-        : dispatch(editBook(dataBook, bookId));
-      setIsValid(false);
-      setOpen(false);
-    }
-  }
   //dialog content
   const dialogContentDelte = (
     <div className="content-dialog">
@@ -262,42 +204,14 @@ function Book() {
     </div>
   );
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    handleAddNew();
-  };
-  const handleClose = () => {
-    setIsValid(false);
-    setOpen(false);
-    dispatch(bookForEdit());
-  };
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
         <BookModal
           setOpen={setOpen}
-          setIsValide={setIsValid}
-          setName={setName}
-          isValid={isValid}
           open={open}
-          dataBook={dataBook}
-          PaperProps={{ sx: { width: "400px", height: "full" } }}
-          submitHandler={submitHandler}
-          handleClose={handleClose}
-          name={name}
-          sorthDesc={sorthDesc}
-          setSorthDesc={setSorthDesc}
-          tagline={tagline}
-          setTagline={setTagline}
-          authorId={authorId}
-          setAuthorId={setAuthorId}
-          authorData={authorData}
-          categoryId={categoryId}
-          setCategoryId={setCategoryId}
-          categoryData={categoryData}
-          setIsPublished={setIsPublished}
-          isPublished={isPublished}
           bookId={bookId}
+          setBookId={setBookId}
         />
 
         <WarniningDialog
