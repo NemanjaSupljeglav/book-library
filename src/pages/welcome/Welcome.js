@@ -13,7 +13,7 @@ function Welcome() {
         Commodo ullamco in amet pariatur in commodo ex irure qui eiusmod Lorem
         id. Aliquip officia dolore nostrud commodo sit ipsum ea elit aliquip
         consectetur voluptate ad laboris aliquip. Exercitation dolore incididunt
-        laboris nulla elit non id ullamco incididunt ad.\r\n"
+        laboris nulla elit non id ullamco incididunt ad.\r\n
       </p>
       <h4 className="welcome-dev-by">
         Developed by:<b>Virtual biopsiess</b>

@@ -43,6 +43,7 @@ function Dialog({
             <CancelOutlinedIcon
               onClick={handleClose}
               className="close-icon"
+              data-testid="cancel-book-icon"
               style={{
                 position: "absolute",
                 right: "15px",
@@ -56,19 +57,22 @@ function Dialog({
             <DialogContent>{content}</DialogContent>
 
             <DialogActions>
-              <Button
-                onClick={handleClose}
-                label={"Cancel"}
-                variant="outlined"
-                color="cancle"
-              />
-
-              <Button
-                onClick={submitHandler}
-                label={"Confirm"}
-                variant="contained"
-                color="confirm"
-              />
+              <div data-testid="cancel-book-btn">
+                <Button
+                  onClick={handleClose}
+                  label={"Cancel"}
+                  variant="outlined"
+                  color="cancle"
+                />
+              </div>
+              <div data-testid="confirm-book-btn">
+                <Button
+                  onClick={submitHandler}
+                  label={"Confirm"}
+                  variant="contained"
+                  color="confirm"
+                />
+              </div>
             </DialogActions>
           </DialogMUI>
         </ThemeProvider>

@@ -15,6 +15,7 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+
 function Book() {
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -217,6 +218,7 @@ function Book() {
                   setOpen(true);
                 }}
                 className="edit-icon"
+                data-testid="add-book-btn"
               >
                 <IconButton>
                   <AddCircleOutlineIcon />

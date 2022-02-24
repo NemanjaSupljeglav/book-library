@@ -15,7 +15,6 @@ nav.navbar {
   align-items: center;
   width: 80%;
   margin: 0 auto;
-  padding: 0.6rem;
 }
 
 .navbar-toggler {
@@ -102,9 +101,9 @@ nav a.is-active {
     width: 210px;
     background: whitesmoke;
     z-index: 999;
-    margin-top: 3rem;
     float: right;
     right: 0;
+    margin-top: 62px;
     height: 100vh;
     transition: all ease-in-out 0.3s;
     align-self: flex-start;
