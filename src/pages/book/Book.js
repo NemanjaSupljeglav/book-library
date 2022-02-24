@@ -129,6 +129,7 @@ function Book() {
                     setOpen(true);
                   }}
                   className="edit-icon"
+                  datacy="edit-book-test"
                 >
                   <IconButton>
                     <EditIcon />
@@ -158,6 +159,7 @@ function Book() {
                     steDelteBookId(bookData[dataIndex].uuid);
                     setOpenDelete(true);
                   }}
+                  datacy="delete-book-test"
                 >
                   <IconButton>
                     <DeleteIcon />
@@ -218,7 +220,7 @@ function Book() {
                   setOpen(true);
                 }}
                 className="edit-icon"
-                data-testid="add-book-btn"
+                datacy="add-book-btn"
               >
                 <IconButton>
                   <AddCircleOutlineIcon />

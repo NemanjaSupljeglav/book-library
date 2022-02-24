@@ -13,6 +13,7 @@ function TextField(props) {
     multiline,
     style,
     isValid,
+    datacy,
   } = props;
 
   return (
@@ -34,6 +35,7 @@ function TextField(props) {
         }
         rows={5}
         label={placeholder}
+        datacy={datacy}
       />
     </div>
   );

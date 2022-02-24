@@ -31,7 +31,7 @@ function Dashboard() {
       <BrowserRouter>
         <nav className="navbar">
           <div className="navbar-container">
-            <a href="/" className="brand-title" data-testid="home-book-btn">
+            <a href="/" className="brand-title" datacy="home-book-btn">
               <FaBook size="2em" />
             </a>
             <button
@@ -39,7 +39,7 @@ function Dashboard() {
                 handleNavbarButton(e);
               }}
               className="navbar-toggler"
-              data-testid="navbar-toggler-btn"
+              datacy="navbar-toggler-btn"
             >
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -51,7 +51,7 @@ function Dashboard() {
                     exact={true}
                     className="nav-link"
                     to="/book"
-                    data-testid="book-btn"
+                    datacy="book-btn"
                   >
                     Books
                   </NavLink>
@@ -62,7 +62,7 @@ function Dashboard() {
                     exact={true}
                     className="nav-link"
                     to="/author"
-                    data-testid="author-btn"
+                    datacy="author-btn"
                   >
                     Authors
                   </NavLink>
@@ -73,7 +73,7 @@ function Dashboard() {
                     exact={true}
                     className="nav-link"
                     to="/category"
-                    data-testid="category-btn"
+                    datacy="category-btn"
                   >
                     Categorys
                   </NavLink>

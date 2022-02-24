@@ -16,12 +16,12 @@ const Button = (props) => {
     fullWidth,
     type,
     color,
-    datacy,
     disabled,
     customStyle,
     startIcon,
     size,
     className,
+    datacy,
   } = props;
 
   return (
@@ -35,11 +35,11 @@ const Button = (props) => {
         startIcon={startIcon && <Icon>{startIcon}</Icon>}
         fullWidth={fullWidth}
         type={type}
-        datacy={datacy}
         style={customStyle}
         classes={className}
         size={size}
         className={className}
+        datacy={datacy}
       >
         <div style={{ fontSize: "15px", position: "relative", top: "3px" }}>
           <div style={{ fontWeight: "bold" }}>{label}</div>
@@ -59,7 +59,7 @@ Button.defaultProps = {
   startIcon: "",
   fullWidth: false,
   type: "button",
-  dataCy: null,
+  datacy: null,
   disabled: false,
   customStyle: {},
   classes: {},

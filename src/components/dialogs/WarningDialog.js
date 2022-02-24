@@ -105,6 +105,7 @@ function Dialogs({
                 label={"Cancel"}
                 variant="outlined"
                 color="cancle"
+                datacy="delete-cancel-btn"
               />
 
               <Button
@@ -112,6 +113,7 @@ function Dialogs({
                 onClick={submitHandler}
                 variant="contained"
                 color="confirm"
+                datacy="delete-confirm-btn"
               />
             </DialogActions>
           </Dialog>

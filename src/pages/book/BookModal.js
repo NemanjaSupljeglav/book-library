@@ -1,6 +1,6 @@
 import React from "react";
 import Dialogs from "../../components/dialogs/Dialog";
-import TextFieldAtom from "../../components/atom/TextField";
+import TextField from "../../components/atom/TextField";
 import { FormControl } from "@material-ui/core";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -18,8 +18,8 @@ function BookModal(props) {
 
   const [name, setName] = useState("");
   const [tagline, setTagline] = useState("");
-  const [categoryId, setCategoryId] = useState(0);
-  const [authorId, setAuthorId] = useState(0);
+  const [categoryId, setCategoryId] = useState("");
+  const [authorId, setAuthorId] = useState("");
   const [sorthDesc, setSorthDesc] = useState("");
   const [isPublished, setIsPublished] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -50,7 +50,7 @@ function BookModal(props) {
   const dialogContent = (
     <div>
       <div className="dialog-content-wrapper">
-        <TextFieldAtom
+        <TextField
           margin="dense"
           id="name"
           name={"Book title"}
@@ -64,8 +64,9 @@ function BookModal(props) {
           required
           style={{ width: 350 }}
           isValid={isValid}
+          datacy="input-book-title"
         />
-        <TextFieldAtom
+        <TextField
           autoFocus
           margin="dense"
           id="name"
@@ -80,8 +81,9 @@ function BookModal(props) {
           multiline={true}
           style={{ width: 350 }}
           isValid={isValid}
+          datacy="input-book-description"
         />
-        <TextFieldAtom
+        <TextField
           autoFocus
           margin="dense"
           id="name"
@@ -96,6 +98,7 @@ function BookModal(props) {
           required
           style={{ width: 350 }}
           isValid={isValid}
+          datacy="input-book-tagline"
         />
         <FormControl variant="standard">
           <InputLabel id="demo-simple-select-standard-label">Author</InputLabel>
@@ -109,6 +112,8 @@ function BookModal(props) {
               setAuthorId(event.target.value);
             }}
             error={authorId === "" && isValid}
+            datacy="input-book-author"
+            data-tesid="input-book-author"
           >
             {authorData?.map((data) => {
               return (
@@ -140,6 +145,7 @@ function BookModal(props) {
             }}
             error={categoryId === "" && isValid}
             label={"Category"}
+            datacy="input-book-category"
           >
             {categoryData?.map((data) => {
               return (

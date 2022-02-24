@@ -144,6 +144,7 @@ function Author() {
                   setOpen(true);
                 }}
                 className="edit-icon"
+                datacy="add-author-btn"
               >
                 <IconButton>
                   <AddCircleOutlineIcon />
