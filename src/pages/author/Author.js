@@ -75,6 +75,7 @@ function Author() {
             setName(event.target.value);
           }}
           isValid={isValid}
+          datacy="input-author-name"
         />
 
         <TextFieldAtom
@@ -91,6 +92,7 @@ function Author() {
           }}
           multiline={true}
           isValid={isValid}
+          datacy="input-author-about"
         />
       </div>
     </div>

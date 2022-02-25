@@ -76,6 +76,7 @@ function Category() {
           }}
           isValid={isValid}
           error={isValid && name === ""}
+          datacy="input-category-name"
         />
 
         <TextFieldAtom
@@ -84,13 +85,14 @@ function Category() {
           id="name"
           name={"About"}
           defaultValue={about}
-          placeholder="Desription"
+          placeholder="Description"
           variant="standard"
           onChange={(event) => {
             setAbout(event.target.value);
           }}
           multiline={true}
           isValid={isValid}
+          datacy="input-category-about"
         />
       </div>
     </div>
@@ -145,6 +147,7 @@ function Category() {
                   setOpen(true);
                 }}
                 className="edit-icon"
+                datacy="add-category-btn"
               >
                 <IconButton>
                   <AddCircleOutlineIcon />

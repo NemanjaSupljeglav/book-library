@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe("welcome", () => {
-  it("Every basic element exists", () => {
+  it("Author page have all basic element", () => {
     cy.visit("http://localhost:3000");
     cy.get("[datacy=author-btn]").should("be.visible");
     cy.get("[datacy=author-btn]").click();
@@ -14,11 +14,45 @@ describe("welcome", () => {
     cy.get("[datacy=cancel-book-btn]").should("exist");
     cy.get("[datacy=confirm-book-btn]").should("exist");
     cy.get("[datacy=cancel-book-btn]").click();
-    cy.contains("Add new author").should("not.exist");
-    cy.get("[datacy=add-author-btn]").click({ multiple: true, force: true });
+    cy.contains("confirm").should("not.exist");
   });
-  /*
-  it("Every basic element exists", () => {
+  it("Add author works", () => {
+    cy.get("[datacy=add-author-btn]").click({ multiple: true, force: true });
+    cy.get("[datacy=input-author-name]").type("Ivo Andrić");
+    cy.get("[datacy=input-author-about]").type(
+      "Ivo  Andrić rodio se u Travniku, u hrvatskoj obitelji[8][9] Antuna Andrića, sudskoga podvornika i Katarine Pejić.[10] Mjesec dana po rođenju, dana 9. studenog 1892. godine, u Crkvi sv. "
+    );
+    cy.get("[datacy=confirm-book-btn]").click();
+    cy.contains("Ivo Andrić").should("exist");
+  });
+  it("Category page have all basic element", () => {
+    cy.get("[datacy=category-btn]").should("be.visible");
+    cy.get("[datacy=category-btn]").click();
+    cy.contains("Type").should("exist");
+    cy.contains("Describe").should("exist");
+    cy.get("[datacy=add-category-btn]").should("be.visible");
+    cy.get("[datacy=add-category-btn]").click({ multiple: true, force: true });
+    cy.contains("Add new category").should("exist");
+    cy.contains("Category name").should("exist");
+    cy.contains("Description").should("exist");
+    cy.get("[datacy=cancel-book-btn]").should("exist");
+    cy.get("[datacy=confirm-book-btn]").should("exist");
+    cy.get("[datacy=cancel-book-btn]").click();
+    cy.contains("confirm").should("not.exist");
+    cy.get("[datacy=add-category-btn]").click({ multiple: true, force: true });
+  });
+  it("Add category works", () => {
+    cy.get("[datacy=add-category-btn]").click({ multiple: true, force: true });
+    cy.get("[datacy=input-category-name]").type("Roman");
+    cy.get("[datacy=input-category-about]").type(
+      "Roman je najopširnija prozna književna vrsta, a u današnje vrijeme i najpopularnija. Prvotno se tako nazivao svaki spis koji je pisan pučkim (romanskim) jezikom (za razliku od latinskog). "
+    );
+    cy.get("[datacy=confirm-book-btn]").click();
+    cy.contains("Roman").should("exist");
+    cy.contains("Roman je najopširnija prozna književna vrsta").should("exist");
+  });
+
+  it("Book page have all basic element", () => {
     cy.get("[datacy=book-btn]").should("be.visible");
     cy.get("[datacy=book-btn]").click();
     cy.contains("Name").should("exist");
@@ -28,7 +62,7 @@ describe("welcome", () => {
     cy.contains("Delete").should("exist");
     cy.get("[datacy=add-book-btn]").should("exist");
   });
-  
+
   it("Add new book looks good", () => {
     cy.get("[datacy=add-book-btn]").click({ multiple: true, force: true });
     cy.contains("Add new book").should("exist");
@@ -58,14 +92,14 @@ describe("welcome", () => {
       "Knjiga o ćupriji, Tomislavgrad"
     );
     cy.get("[datacy=input-book-author]").last().click({ multiple: true });
-    cy.contains("Eve Gates").click();
+    cy.contains("Ivo Andrić").click();
     cy.get("[datacy=input-book-category]").click({ multiple: true });
-    cy.contains("Fantasy").click();
+    cy.contains("Roman").click();
     cy.get("[datacy=confirm-book-btn]").click();
     cy.contains("Na Drini ćuprija").should("exist");
     cy.contains("Knjiga o ćupriji, Tomislavgrad").should("exist");
-    cy.contains("Eve Gates").should("exist");
-    cy.contains("Fantasy").should("exist");
+    cy.contains("Ivo Andrić").should("exist");
+    cy.contains("Roman").should("exist");
   });
   it("Edit book works", () => {
     cy.get("[datacy=edit-book-test]").last().click({ multiple: true });
@@ -90,5 +124,4 @@ describe("welcome", () => {
     });
     cy.contains("Na Drini most").should("not.exist");
   });
-  */
 });
