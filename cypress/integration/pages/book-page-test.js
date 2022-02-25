@@ -124,4 +124,30 @@ describe("welcome", () => {
     });
     cy.contains("Na Drini most").should("not.exist");
   });
+
+  it("Delete category looks and works good", () => {
+    cy.get("[datacy=category-btn]").click();
+    cy.get("[datacy=delete-category-test]").last().click({ multiple: true });
+    cy.contains("Confirm Delete").should("exist");
+    cy.get("[datacy=delete-cancel-btn]").should("exist");
+    cy.get("[datacy=delete-confirm-btn]").should("exist");
+    cy.get("[datacy=delete-confirm-btn]").click({
+      multiple: true,
+      force: true,
+    });
+    cy.contains("Roman").should("not.exist");
+  });
+
+  it("Delete author looks and works good", () => {
+    cy.get("[datacy=author-btn]").click();
+    cy.get("[datacy=delete-author-test]").last().click({ multiple: true });
+    cy.contains("Confirm Delete").should("exist");
+    cy.get("[datacy=delete-cancel-btn]").should("exist");
+    cy.get("[datacy=delete-confirm-btn]").should("exist");
+    cy.get("[datacy=delete-confirm-btn]").click({
+      multiple: true,
+      force: true,
+    });
+    cy.contains("Ivo Andrić").should("not.exist");
+  });
 });

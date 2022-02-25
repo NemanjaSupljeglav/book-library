@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./author.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addAuthor } from "../../redux/authorsSlice";
-import Button from "../../components/buttons/Button";
-import { getAllAuthor } from "../../redux/authorsSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
+import WarniningDialog from "../../components/dialogs/WarningDialog";
+
+import {
+  getAllAuthor,
+  deleteAuthor,
+  addAuthor,
+} from "../../redux/authorsSlice";
 import Dialogs from "../../components/dialogs/Dialog";
 import TextFieldAtom from "../../components/atom/TextField";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -19,7 +24,8 @@ function Author() {
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [isValid, setIsValid] = useState(false);
-
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteAuthorId, steDeleteAuthorId] = useState(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,6 +51,36 @@ function Author() {
       options: {
         filter: true,
         sort: true,
+      },
+    },
+    {
+      name: "Delete",
+      label: "",
+      property: "id",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRenderLite: (dataIndex) => {
+          return (
+            <>
+              {authorData[dataIndex] && (
+                <Tooltip
+                  title="Delete category"
+                  onClick={() => {
+                    steDeleteAuthorId(authorData[dataIndex].id);
+                    setOpenDelete(true);
+                  }}
+                  datacy="delete-author-test"
+                >
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </>
+          );
+        },
       },
     },
   ];
@@ -123,9 +159,26 @@ function Author() {
     setIsValid(false);
     setOpen(false);
   };
+  function handleDelete() {
+    dispatch(deleteAuthor(deleteAuthorId));
+    setOpenDelete(false);
+  }
+  const dialogContentDelte = (
+    <div className="content-dialog">
+      Are you sure you want to delete this Author?
+    </div>
+  );
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
+        <WarniningDialog
+          setOpenDelete={setOpenDelete}
+          openDelte={openDelete}
+          contentDelte={dialogContentDelte}
+          deleteCategoryId={deleteAuthorId}
+          handleDelete={handleDelete}
+          titleDelete="Confirm Delete"
+        />
         <Dialogs
           setOpen={setOpen}
           open={open}

@@ -23,6 +23,14 @@ const ADD_AUTHOR_SCS = "auth/ADD_AUTHOR_SCS";
 
 const ADD_AUTHOR_FLR = "auth/ADD_AUTHOR_FLR";
 
+//Delete
+
+const DELETE_AUTHOR_REQ = "auth/DELETE_AUTHOR_REQ";
+
+const DELETE_AUTHOR_SCS = "auth/DELETE_AUTHOR_SCS";
+
+const DELETE_AUTHOR_FLR = "auth/DELETE_AUTHOR_FLR";
+
 //ACTION GET
 
 export const getAllAuthor = () => async (dispatch) => {
@@ -107,6 +115,42 @@ export const addAuthor = (dataAuthor) => async (dispatch) => {
   }
 };
 
+//ACTION DELETE
+
+export const deleteAuthor = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_AUTHOR_REQ });
+
+  const deleteFunc = async () => {
+    return axios.delete(`${URL}/author/${id}`);
+  };
+
+  const response = await deleteFunc();
+
+  if (response.status === 200) {
+    dispatch({
+      type: DELETE_AUTHOR_SCS,
+
+      payload: id,
+    });
+
+    //dispatch({ type: VALIDATION_CLEAR });
+
+    //NotificationManager.success(i18n.t(response.status.description));
+  } else {
+    // eslint-disable-next-line no-lonely-if
+
+    if (typeof response.status === "string") {
+      //NotificationManager.error(i18n.t(response.status.description));
+
+      dispatch({ type: DELETE_AUTHOR_FLR });
+
+      //dispatch({ type: VALIDATION_CLEAR });
+    } else {
+      //dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
+  }
+};
+
 /**
 
  * REDUCERS
@@ -175,6 +219,34 @@ export function authorReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: false,
+      };
+    case DELETE_AUTHOR_REQ:
+      return {
+        ...state,
+
+        loading: true,
+
+        data: state.data,
+
+        total: state.total,
+      };
+
+    case DELETE_AUTHOR_SCS:
+      return {
+        ...state,
+        loading: false,
+
+        data: state.data.filter((book) => book.id !== action.payload),
+      };
+    case DELETE_AUTHOR_FLR:
+      return {
+        ...state,
+
+        loading: false,
+
+        data: state.data,
+
+        total: state.total,
       };
   }
 }

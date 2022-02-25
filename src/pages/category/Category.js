@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./category.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addCategory } from "../../redux/categorySlice";
-import { getAllCategory } from "../../redux/categorySlice";
+import {
+  addCategory,
+  deleteCategory,
+  getAllCategory,
+} from "../../redux/categorySlice";
 import Dialogs from "../../components/dialogs/Dialog";
 import TextFieldAtom from "../../components/atom/TextField";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-
-//MUIDataTable
+import DeleteIcon from "@mui/icons-material/Delete";
+import WarniningDialog from "../../components/dialogs/WarningDialog";
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
@@ -19,6 +22,8 @@ function Category() {
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteCategoryId, steDeleteCategoryId] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -45,6 +50,36 @@ function Category() {
       options: {
         filter: true,
         sort: true,
+      },
+    },
+    {
+      name: "Delete",
+      label: "",
+      property: "id",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRenderLite: (dataIndex) => {
+          return (
+            <>
+              {categoryData[dataIndex] && (
+                <Tooltip
+                  title="Delete category"
+                  onClick={() => {
+                    steDeleteCategoryId(categoryData[dataIndex].id);
+                    setOpenDelete(true);
+                  }}
+                  datacy="delete-category-test"
+                >
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </>
+          );
+        },
       },
     },
   ];
@@ -124,9 +159,27 @@ function Category() {
     setIsValid(false);
     setOpen(false);
   };
+  //dialog content
+  const dialogContentDelte = (
+    <div className="content-dialog">
+      Are you sure you want to delete this category?
+    </div>
+  );
+  function handleDelete() {
+    dispatch(deleteCategory(deleteCategoryId));
+    setOpenDelete(false);
+  }
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
+        <WarniningDialog
+          setOpenDelete={setOpenDelete}
+          openDelte={openDelete}
+          contentDelte={dialogContentDelte}
+          deleteCategoryId={deleteCategoryId}
+          handleDelete={handleDelete}
+          titleDelete="Confirm Delete"
+        />
         <Dialogs
           setOpen={setOpen}
           open={open}

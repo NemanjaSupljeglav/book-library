@@ -22,6 +22,14 @@ const ADD_CATEGORY_SCS = "auth/ADD_CATEGORY_SCS";
 
 const ADD_CATEGORY_FLR = "auth/ADD_CATEGORY_FLR";
 
+//Delete
+
+const DELETE_CATEGORY_REQ = "auth/DELETE_CATEGORY_REQ";
+
+const DELETE_CATEGORY_SCS = "auth/DELETE_CATEGORY_SCS";
+
+const DELETE_CATEGORY_FLR = "auth/DELETE_CATEGORY_FLR";
+
 //ACTION GET
 
 export const getAllCategory = () => async (dispatch) => {
@@ -61,22 +69,7 @@ export const getAllCategory = () => async (dispatch) => {
 
 export const addCategory = (dataCategory) => async (dispatch) => {
   dispatch({ type: ADD_CATEGORY_REQ });
-  /*
-  const addFunc = async () => {
-    return fetch(`${URL}/category`, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
 
-      body: JSON.stringify(dataCategory),
-    });
-  };
-
-  const response = await addFunc();
-*/
   const addFunc = async () => {
     return axios
       .post(`${URL}/category`, {
@@ -113,6 +106,42 @@ export const addCategory = (dataCategory) => async (dispatch) => {
       //NotificationManager.error(i18n.t(response.status.description));
 
       dispatch({ type: ADD_CATEGORY_FLR });
+
+      //dispatch({ type: VALIDATION_CLEAR });
+    } else {
+      //dispatch({ type: VALIDATION_MESSAGE, message: response.status });
+    }
+  }
+};
+
+//ACTION DELETE
+
+export const deleteCategory = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_CATEGORY_REQ });
+
+  const deleteFunc = async () => {
+    return axios.delete(`${URL}/category/${id}`);
+  };
+
+  const response = await deleteFunc();
+
+  if (response.status === 200) {
+    dispatch({
+      type: DELETE_CATEGORY_SCS,
+
+      payload: id,
+    });
+
+    //dispatch({ type: VALIDATION_CLEAR });
+
+    //NotificationManager.success(i18n.t(response.status.description));
+  } else {
+    // eslint-disable-next-line no-lonely-if
+
+    if (typeof response.status === "string") {
+      //NotificationManager.error(i18n.t(response.status.description));
+
+      dispatch({ type: DELETE_CATEGORY_FLR });
 
       //dispatch({ type: VALIDATION_CLEAR });
     } else {
@@ -189,6 +218,34 @@ export function categoryReducer(state = INIT_STATE, action = {}) {
         ...state,
 
         loading: false,
+      };
+    case DELETE_CATEGORY_REQ:
+      return {
+        ...state,
+
+        loading: true,
+
+        data: state.data,
+
+        total: state.total,
+      };
+
+    case DELETE_CATEGORY_SCS:
+      return {
+        ...state,
+        loading: false,
+
+        data: state.data.filter((book) => book.id !== action.payload),
+      };
+    case DELETE_CATEGORY_FLR:
+      return {
+        ...state,
+
+        loading: false,
+
+        data: state.data,
+
+        total: state.total,
       };
   }
 }
