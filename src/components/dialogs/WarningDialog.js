@@ -35,6 +35,8 @@ function Dialogs({
   title,
   handleDelete,
   titleDelete,
+  buttonOk,
+  buttonNo,
 }) {
   const handleClose = () => {
     setOpenDelete(false);
@@ -102,14 +104,14 @@ function Dialogs({
             <DialogActions>
               <Button
                 onClick={handleClose}
-                label={"Cancel"}
+                label={buttonNo}
                 variant="outlined"
                 color="cancle"
                 datacy="delete-cancel-btn"
               />
 
               <Button
-                label={"Delete"}
+                label={buttonOk}
                 onClick={submitHandler}
                 variant="contained"
                 color="confirm"

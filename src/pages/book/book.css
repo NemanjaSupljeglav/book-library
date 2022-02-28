@@ -48,3 +48,9 @@
 .edit-icon:hover {
   border: 50%;
 }
+.content-dialog-status {
+  font-size: 21px;
+}
+.content-dialog-status-status {
+  width: 385px;
+}

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./book.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBooks, deleteBook, bookForEdit } from "../../redux/booksSlice";
+import {
+  getAllBooks,
+  deleteBook,
+  bookForEdit,
+  editBook,
+} from "../../redux/booksSlice";
+
 import WarniningDialog from "../../components/dialogs/WarningDialog";
 import BookModal from "./BookModal";
 //MUI
@@ -19,7 +25,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 function Book() {
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [count, setCount] = useState(0);
+  const [openPublished, setOpenPublished] = useState(false);
+  const [isPublished, setIsPublished] = useState(false);
   const [bookId, setBookId] = useState("");
   const [delteBookId, steDelteBookId] = useState(0);
 
@@ -28,6 +35,7 @@ function Book() {
   const bookData = useSelector((state) => state.bookReducer.data);
   const authorData = useSelector((state) => state.authorReducer.data);
   const categoryData = useSelector((state) => state.categoryReducer.data);
+  const oneBook = useSelector((state) => state.bookReducer.oneBook);
 
   useEffect(() => {
     dispatch(getAllBooks());
@@ -93,15 +101,43 @@ function Book() {
           return (
             <>
               {bookData[dataIndex].is_published ? (
-                <CheckCircleOutlineIcon
-                  className="published"
-                  style={{ color: "green", marginLeft: "5px" }}
-                />
+                <Tooltip
+                  title="Edit"
+                  onClick={() => {
+                    dispatch(bookForEdit(bookData[dataIndex].uuid));
+                    setBookId(bookData[dataIndex].uuid);
+                    setIsPublished(!bookData[dataIndex].is_published);
+                    setOpenPublished(true);
+                  }}
+                  className="edit-icon"
+                  datacy="edit-book-test"
+                >
+                  <IconButton>
+                    <CheckCircleOutlineIcon
+                      className="published"
+                      style={{ color: "green", marginLeft: "0px" }}
+                    />
+                  </IconButton>
+                </Tooltip>
               ) : (
-                <ErrorOutlineIcon
-                  className="published"
-                  style={{ color: "red", marginLeft: "5px" }}
-                />
+                <Tooltip
+                  title="Edit"
+                  onClick={() => {
+                    dispatch(bookForEdit(bookData[dataIndex].uuid));
+                    setBookId(bookData[dataIndex].uuid);
+                    setIsPublished(!bookData[dataIndex].is_published);
+                    setOpenPublished(true);
+                  }}
+                  className="edit-icon"
+                  datacy="edit-book-test"
+                >
+                  <IconButton>
+                    <ErrorOutlineIcon
+                      className="published"
+                      style={{ color: "red", marginLeft: "0px" }}
+                    />
+                  </IconButton>
+                </Tooltip>
               )}
             </>
           );
@@ -125,7 +161,6 @@ function Book() {
                   onClick={() => {
                     dispatch(bookForEdit(bookData[dataIndex].uuid));
                     setBookId(bookData[dataIndex].uuid);
-
                     setOpen(true);
                   }}
                   className="edit-icon"
@@ -182,7 +217,6 @@ function Book() {
 
   function handleDelete() {
     dispatch(deleteBook(delteBookId));
-    setCount(count + 1);
     setOpenDelete(false);
   }
 
@@ -192,7 +226,24 @@ function Book() {
       Are you sure you want to delete this book?
     </div>
   );
+  const dialogContentPublished = (
+    <>
+      <div className="content-dialog-status-status">
+        {oneBook?.name}
+        {oneBook?.is_published
+          ? " is active, are you sure you want change status?"
+          : " are not active, are you sure you want change status?"}
+      </div>
+    </>
+  );
+  function submitPublished() {
+    const dataBook = {
+      is_published: isPublished,
+    };
 
+    dispatch(editBook(dataBook, bookId));
+    setOpenPublished(false);
+  }
   return (
     <div className="book-wrapper">
       <ThemeProvider theme={createTheme()}>
@@ -210,6 +261,18 @@ function Book() {
           delteBookId={delteBookId}
           handleDelete={handleDelete}
           titleDelete="Confirm Delete"
+          buttonNo={"cancel"}
+          buttonOk={"confirm"}
+        />
+        <WarniningDialog
+          setOpenDelete={setOpenPublished}
+          openDelte={openPublished}
+          contentDelte={dialogContentPublished}
+          delteBookId={delteBookId}
+          handleDelete={submitPublished}
+          titleDelete="Change published status"
+          buttonNo={"cancel"}
+          buttonOk={"change"}
         />
         <MUIDataTable
           title={
