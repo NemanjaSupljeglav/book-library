@@ -10,6 +10,7 @@ import {
 
 import WarniningDialog from "../../components/dialogs/WarningDialog";
 import BookModal from "./BookModal";
+
 //MUI
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
@@ -29,9 +30,7 @@ function Book() {
   const [isPublished, setIsPublished] = useState(false);
   const [bookId, setBookId] = useState("");
   const [delteBookId, steDelteBookId] = useState(0);
-
   const dispatch = useDispatch();
-
   const bookData = useSelector((state) => state.bookReducer.data);
   const authorData = useSelector((state) => state.authorReducer.data);
   const categoryData = useSelector((state) => state.categoryReducer.data);
@@ -102,7 +101,7 @@ function Book() {
             <>
               {bookData[dataIndex].is_published ? (
                 <Tooltip
-                  title="Edit"
+                  title="Edit status"
                   onClick={() => {
                     dispatch(bookForEdit(bookData[dataIndex].uuid));
                     setBookId(bookData[dataIndex].uuid);
@@ -121,7 +120,7 @@ function Book() {
                 </Tooltip>
               ) : (
                 <Tooltip
-                  title="Edit"
+                  title="Edit status"
                   onClick={() => {
                     dispatch(bookForEdit(bookData[dataIndex].uuid));
                     setBookId(bookData[dataIndex].uuid);
@@ -232,7 +231,7 @@ function Book() {
         {oneBook?.name}
         {oneBook?.is_published
           ? " is active, are you sure you want change status?"
-          : " are not active, are you sure you want change status?"}
+          : " is not active, are you sure you want change status?"}
       </div>
     </>
   );
@@ -242,6 +241,8 @@ function Book() {
     };
 
     dispatch(editBook(dataBook, bookId));
+    dispatch(bookForEdit());
+    setBookId("");
     setOpenPublished(false);
   }
   return (

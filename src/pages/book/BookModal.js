@@ -44,6 +44,15 @@ function BookModal(props) {
       setCategoryId(oneBook.category_id);
       setAuthorId(oneBook.author_id);
       setIsPublished(oneBook.is_published);
+    } else {
+      setIsValid(false);
+
+      setBookId("");
+      setName("");
+      setTagline("");
+      setSorthDesc("");
+      setCategoryId("");
+      setAuthorId("");
     }
   }, [oneBook]);
 
@@ -211,14 +220,8 @@ function BookModal(props) {
       bookId === ""
         ? dispatch(addBook(dataBook))
         : dispatch(editBook(dataBook, bookId));
-      setIsValid(false);
+      dispatch(bookForEdit());
       setOpen(false);
-      setBookId("");
-      setName("");
-      setTagline("");
-      setSorthDesc("");
-      setCategoryId("");
-      setAuthorId("");
     }
   }
 
@@ -227,6 +230,7 @@ function BookModal(props) {
     setIsValid(false);
     setOpen(false);
   };
+
   return (
     <div className="wrapper-book-dialog">
       <Dialogs
