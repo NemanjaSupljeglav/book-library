@@ -7,7 +7,7 @@ import {
   bookForEdit,
   editBook,
 } from "../../redux/booksSlice";
-
+import { useTranslation } from "react-i18next";
 import WarniningDialog from "../../components/dialogs/WarningDialog";
 import BookModal from "./BookModal";
 
@@ -39,6 +39,8 @@ function Book() {
   useEffect(() => {
     dispatch(getAllBooks());
   }, []);
+
+  const { t } = useTranslation();
 
   //MUIDataTable
 

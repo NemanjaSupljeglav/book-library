@@ -222,6 +222,13 @@ function BookModal(props) {
         ? dispatch(addBook(dataBook))
         : dispatch(editBook(dataBook, bookId));
       dispatch(bookForEdit());
+      setIsValid(false);
+      setBookId("");
+      setName("");
+      setTagline("");
+      setSorthDesc("");
+      setCategoryId("");
+      setAuthorId("");
       setOpen(false);
     }
   }

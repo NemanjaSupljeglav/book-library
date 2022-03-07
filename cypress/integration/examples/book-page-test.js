@@ -103,7 +103,7 @@ describe("welcome", () => {
   });
   it("Edit book works", () => {
     cy.get("[datacy=edit-book-test]").last().click({ multiple: true });
-    cy.get("[datacy=input-book-title]").type("Na Drini most");
+    cy.get("[datacy=input-book-title]").clear().type("Na Drini most");
     cy.get("[datacy=confirm-book-btn]").click();
     cy.contains("Na Drini most").should("exist");
   });

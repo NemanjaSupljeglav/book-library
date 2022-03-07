@@ -58,6 +58,7 @@ li.nav-item:hover {
   border-radius: 5px;
 }
 .brand-title {
+  margin-right: 5px;
   padding: 8px 10px;
   border-radius: 5px;
   transition-duration: 0.2s;
@@ -161,4 +162,58 @@ li.nav-item a.nav-link {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.wrapper-all-translation {
+  margin-bottom: 17px;
+  width: 300px;
+  margin-right: 10%;
+}
+
+.button-translation {
+  margin-right: 15px;
+  padding: 6px 18px;
+  border-radius: 8px;
+  background: white;
+  font-weight: bold;
+  border-style: solid;
+  transition-duration: 0.2s;
+}
+
+.button-translation:hover {
+  margin-right: 15px;
+  padding: 6px 18px;
+  border-radius: 8px;
+  background: white;
+  color: #f07a19;
+  border-color: #f07a19;
+  border-style: solid;
+}
+.button-translation-select {
+  margin-right: 15px;
+  padding: 6px 18px;
+  border-radius: 8px;
+  background: white;
+  font-weight: bold;
+  border-style: solid;
+  border-color: #f07a19;
+}
+select {
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -ms-appearance: none; /* get rid of default appearance for IE8, 9 and 10*/
+}
+.select_lang {
+  position: relative;
+  margin-right: auto;
+  padding: 10px;
+  padding: 18px 15px;
+  border-radius: 5px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border: rgb(209, 209, 209) solid 1px;
+}
+.brand-title-text {
+  font-size: 12px;
 }

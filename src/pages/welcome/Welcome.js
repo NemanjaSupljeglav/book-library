@@ -1,10 +1,11 @@
 import React from "react";
 import "./welcome.css";
-
+import { useTranslation } from "react-i18next";
 function Welcome() {
+  const { t, i18n } = useTranslation();
   return (
     <div className="welcome-wrapper">
-      <h1 className="welcome-title">Welcome page</h1>
+      <h1 className="welcome-title">{t("WELCOME")}</h1>
       <p className="p-welcome">
         Laboris excepteur est minim et consectetur elit ipsum. Ullamco minim
         reprehenderit esse dolor. Nostrud commodo laborum non irure officia
