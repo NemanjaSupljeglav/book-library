@@ -5,7 +5,8 @@ import { FormControl } from "@material-ui/core";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
-import Switch from "react-switch";
+//import Switch from "react-switch";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBooks } from "../../redux/booksSlice";
@@ -35,6 +36,7 @@ function BookModal(props) {
     dispatch(getAllCategory());
     dispatch(getAllBooks());
   }, []);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (oneBook) {
@@ -61,8 +63,8 @@ function BookModal(props) {
         <TextField
           margin="dense"
           id="name"
-          name={"Book title"}
-          placeholder="Book title"
+          name={t("book-title")}
+          placeholder={t("book-title")}
           defaultValue={name}
           type="text"
           variant="standard"
@@ -78,8 +80,8 @@ function BookModal(props) {
           autoFocus
           margin="dense"
           id="name"
-          name={"Book description"}
-          placeholder="Book description"
+          name={t("book-description")}
+          placeholder={t("book-description")}
           type="text"
           defaultValue={sorthDesc}
           variant="standard"
@@ -95,8 +97,8 @@ function BookModal(props) {
           autoFocus
           margin="dense"
           id="name"
-          name={"Tagline"}
-          placeholder="Tagline"
+          name={t("tagline")}
+          placeholder={t("tagline")}
           type="text"
           defaultValue={tagline}
           variant="standard"
@@ -109,12 +111,14 @@ function BookModal(props) {
           datacy="input-book-tagline"
         />
         <FormControl variant="standard">
-          <InputLabel id="demo-simple-select-standard-label">Author</InputLabel>
+          <InputLabel id="demo-simple-select-standard-label">
+            {t("author")}
+          </InputLabel>
           <Select
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             value={authorId}
-            label="Author"
+            label={t("author")}
             variant="standard"
             onChange={(event) => {
               setAuthorId(event.target.value);
@@ -142,7 +146,7 @@ function BookModal(props) {
 
         <FormControl variant="standard">
           <InputLabel id="demo-simple-select-standard-label">
-            Category
+            {t("category")}
           </InputLabel>
           <Select
             id="demo-simple-select-standard"
@@ -247,7 +251,7 @@ function BookModal(props) {
         open={open}
         content={dialogContent}
         dataBook={dataBook}
-        title={bookId === "" ? "Add new book" : "Edit book"}
+        title={bookId === "" ? t("add-new-book") : t("edit-book")}
         PaperProps={{ sx: { width: "400px", height: "full" } }}
         submitHandler={submitHandler}
         handleClose={handleClose}

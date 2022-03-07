@@ -78,7 +78,7 @@ function Dashboard() {
                     to="/book"
                     datacy="book-btn"
                   >
-                    Books
+                    {t("books")}
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -89,7 +89,7 @@ function Dashboard() {
                     to="/author"
                     datacy="author-btn"
                   >
-                    Authors
+                    {t("authors")}
                   </NavLink>
                 </li>
                 <li className="nav-item">
@@ -100,7 +100,7 @@ function Dashboard() {
                     to="/category"
                     datacy="category-btn"
                   >
-                    Categorys
+                    {t("categorys")}
                   </NavLink>
                   <NavLink
                     activeClassName="is-active"

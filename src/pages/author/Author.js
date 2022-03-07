@@ -3,6 +3,7 @@ import "./author.css";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import WarniningDialog from "../../components/dialogs/WarningDialog";
+import { useTranslation } from "react-i18next";
 
 import {
   getAllAuthor,
@@ -27,7 +28,7 @@ function Author() {
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteAuthorId, steDeleteAuthorId] = useState(0);
   const dispatch = useDispatch();
-
+  const { t } = useTranslation();
   useEffect(() => {
     dispatch(getAllAuthor());
   }, []);
@@ -39,7 +40,7 @@ function Author() {
   const columns = [
     {
       name: "name",
-      label: "Name",
+      label: t("name"),
       options: {
         filter: true,
         sort: true,
@@ -47,14 +48,14 @@ function Author() {
     },
     {
       name: "about",
-      label: "About",
+      label: t("about"),
       options: {
         filter: true,
         sort: true,
       },
     },
     {
-      name: "Delete",
+      name: t("delete"),
       label: "",
       property: "id",
       options: {
@@ -66,7 +67,7 @@ function Author() {
             <>
               {authorData[dataIndex] && (
                 <Tooltip
-                  title="Delete category"
+                  title={t("delete-category")}
                   onClick={() => {
                     steDeleteAuthorId(authorData[dataIndex].id);
                     setOpenDelete(true);
@@ -102,8 +103,8 @@ function Author() {
           autoFocus
           margin="dense"
           id="name"
-          name={"Author name"}
-          placeholder="Author name"
+          name={t("author-name")}
+          placeholder={t("author-name")}
           type="text"
           defaultValue={name}
           variant="standard"
@@ -118,8 +119,8 @@ function Author() {
           autoFocus
           margin="dense"
           id="name"
-          name={"About"}
-          placeholder="About"
+          name={t("about")}
+          placeholder={t("about")}
           style={{ Width: 350 }}
           variant="standard"
           defaultValue={about}
@@ -164,9 +165,7 @@ function Author() {
     setOpenDelete(false);
   }
   const dialogContentDelte = (
-    <div className="content-dialog">
-      Are you sure you want to delete this Author?
-    </div>
+    <div className="content-dialog">{t("delete-author-question")}</div>
   );
   return (
     <div className="book-wrapper">
@@ -177,16 +176,16 @@ function Author() {
           contentDelte={dialogContentDelte}
           deleteCategoryId={deleteAuthorId}
           handleDelete={handleDelete}
-          titleDelete="Confirm Delete"
-          buttonNo={"cancel"}
-          buttonOk={"confirm"}
+          titleDelete={t("confirm-delete")}
+          buttonNo={t("cancel")}
+          buttonOk={t("confirm")}
         />
         <Dialogs
           setOpen={setOpen}
           open={open}
           content={dialogContent}
           dataAuthor={dataAuthor}
-          title={"Add new author"}
+          title={t("add-new-author")}
           PaperProps={{ sx: { width: "280px", height: "full" } }}
           setIsValide={setIsValid}
           handleClose={handleClose}
@@ -196,7 +195,7 @@ function Author() {
           title={
             <div className="button-add-book">
               <Tooltip
-                title="Add new author"
+                title={t("add-new-author")}
                 onClick={() => {
                   setOpen(true);
                 }}

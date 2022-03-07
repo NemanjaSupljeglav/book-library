@@ -16,6 +16,7 @@ import WarniningDialog from "../../components/dialogs/WarningDialog";
 import MUIDataTable from "mui-datatables";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 function Category() {
   const [open, setOpen] = useState(false);
@@ -24,7 +25,7 @@ function Category() {
   const [isValid, setIsValid] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteCategoryId, steDeleteCategoryId] = useState(0);
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,8 +38,8 @@ function Category() {
 
   const columns = [
     {
-      name: "name",
-      label: "Type",
+      name: t("name"),
+      label: t("category"),
       options: {
         filter: true,
         sort: true,
@@ -46,14 +47,14 @@ function Category() {
     },
     {
       name: "short_desc",
-      label: "Describe",
+      label: t("describe"),
       options: {
         filter: true,
         sort: true,
       },
     },
     {
-      name: "Delete",
+      name: t("delete"),
       label: "",
       property: "id",
       options: {
@@ -118,9 +119,9 @@ function Category() {
           autoFocus
           margin="dense"
           id="name"
-          name={"About"}
+          name={t("about")}
           defaultValue={about}
-          placeholder="Description"
+          placeholder={t("description")}
           variant="standard"
           onChange={(event) => {
             setAbout(event.target.value);
@@ -161,9 +162,7 @@ function Category() {
   };
   //dialog content
   const dialogContentDelte = (
-    <div className="content-dialog">
-      Are you sure you want to delete this category?
-    </div>
+    <div className="content-dialog">{t("delete-category-question")}</div>
   );
   function handleDelete() {
     dispatch(deleteCategory(deleteCategoryId));
@@ -178,9 +177,9 @@ function Category() {
           contentDelte={dialogContentDelte}
           deleteCategoryId={deleteCategoryId}
           handleDelete={handleDelete}
-          titleDelete="Confirm Delete"
-          buttonNo={"cancel"}
-          buttonOk={"confirm"}
+          titleDelete={t("confirm-delete")}
+          buttonNo={t("cancel")}
+          buttonOk={t("confirm")}
         />
         <Dialogs
           setOpen={setOpen}
@@ -188,7 +187,7 @@ function Category() {
           content={dialogContent}
           dataAuthor={dataAuthor}
           handleAddNew={handleAddNew}
-          title={"Add new category"}
+          title={t("add-new-category")}
           handleClose={handleClose}
           submitHandler={handleAddNew}
           PaperProps={{ sx: { width: "280px", height: "full" } }}
@@ -197,7 +196,7 @@ function Category() {
           title={
             <div className="button-add-book">
               <Tooltip
-                title="Add new category"
+                title={t("add-new-category")}
                 onClick={() => {
                   setOpen(true);
                 }}

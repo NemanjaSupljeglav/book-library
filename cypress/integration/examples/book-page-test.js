@@ -3,6 +3,7 @@
 describe("welcome", () => {
   it("Author page have all basic element", () => {
     cy.visit("http://localhost:3000");
+    localStorage.setItem("i18nextLng", "en");
     cy.get("[datacy=author-btn]").should("be.visible");
     cy.get("[datacy=author-btn]").click();
     cy.contains("Name").should("exist");

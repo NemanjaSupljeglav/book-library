@@ -47,7 +47,7 @@ function Book() {
   const columns = [
     {
       name: "name",
-      label: "Name",
+      label: t("name"),
       options: {
         filter: true,
         sort: true,
@@ -55,7 +55,7 @@ function Book() {
     },
     {
       name: "author_id",
-      label: "Author",
+      label: t("author"),
       options: {
         filter: true,
         sort: false,
@@ -70,7 +70,7 @@ function Book() {
     },
     {
       name: "category_id",
-      label: "Category",
+      label: t("category"),
       options: {
         filter: true,
         sort: false,
@@ -85,7 +85,7 @@ function Book() {
     },
     {
       name: "tagline",
-      label: "Tagline",
+      label: t("tagline"),
       options: {
         filter: true,
         sort: true,
@@ -94,7 +94,7 @@ function Book() {
 
     {
       name: "is_published",
-      label: "Published",
+      label: t("published"),
       options: {
         filter: true,
         sort: false,
@@ -146,7 +146,7 @@ function Book() {
       },
     },
     {
-      name: "Edit",
+      name: t("edit"),
       label: "",
       property: "id",
       options: {
@@ -178,7 +178,7 @@ function Book() {
       },
     },
     {
-      name: "Delete",
+      name: t("delete"),
       label: "",
       property: "id",
       options: {
@@ -223,17 +223,15 @@ function Book() {
 
   //dialog content
   const dialogContentDelte = (
-    <div className="content-dialog">
-      Are you sure you want to delete this book?
-    </div>
+    <div className="content-dialog">{t("delete-question")}</div>
   );
   const dialogContentPublished = (
     <>
       <div className="content-dialog-status-status">
         {oneBook?.name}
         {oneBook?.is_published
-          ? " is active, are you sure you want change status?"
-          : " is not active, are you sure you want change status?"}
+          ? t("change-status-active")
+          : t("change-status-not-active")}
       </div>
     </>
   );
@@ -263,9 +261,9 @@ function Book() {
           contentDelte={dialogContentDelte}
           delteBookId={delteBookId}
           handleDelete={handleDelete}
-          titleDelete="Confirm Delete"
-          buttonNo={"cancel"}
-          buttonOk={"confirm"}
+          titleDelete={t("confirm-delete")}
+          buttonNo={t("cancel")}
+          buttonOk={t("confirm")}
         />
         <WarniningDialog
           setOpenDelete={setOpenPublished}
@@ -273,9 +271,9 @@ function Book() {
           contentDelte={dialogContentPublished}
           delteBookId={delteBookId}
           handleDelete={submitPublished}
-          titleDelete="Change published status"
-          buttonNo={"cancel"}
-          buttonOk={"change"}
+          titleDelete={t("change-published-status")}
+          buttonNo={t("cancel")}
+          buttonOk={t("confirm")}
         />
         <MUIDataTable
           title={
