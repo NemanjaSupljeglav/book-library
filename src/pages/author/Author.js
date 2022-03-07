@@ -178,6 +178,8 @@ function Author() {
           deleteCategoryId={deleteAuthorId}
           handleDelete={handleDelete}
           titleDelete="Confirm Delete"
+          buttonNo={"cancel"}
+          buttonOk={"confirm"}
         />
         <Dialogs
           setOpen={setOpen}
