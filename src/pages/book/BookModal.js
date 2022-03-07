@@ -46,7 +46,6 @@ function BookModal(props) {
       setIsPublished(oneBook.is_published);
     } else {
       setIsValid(false);
-
       setBookId("");
       setName("");
       setTagline("");
@@ -172,6 +171,7 @@ function BookModal(props) {
             })}
           </Select>
         </FormControl>
+        {/*
         {bookId !== "" && (
           <div
             onClick={() => {
@@ -188,6 +188,7 @@ function BookModal(props) {
             />
           </div>
         )}
+        */}
       </div>
     </div>
   );
