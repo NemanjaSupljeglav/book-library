@@ -7,6 +7,7 @@ import Button from "../buttons/Button";
 import "./dialog.css";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const theme = createTheme({
   status: {
@@ -35,6 +36,8 @@ function Dialog({
   submitHandler,
   handleClose,
 }) {
+  const { t } = useTranslation();
+
   return (
     <form className="wrapper-dialog">
       <div>
@@ -59,7 +62,7 @@ function Dialog({
             <DialogActions>
               <Button
                 onClick={handleClose}
-                label={"Cancel"}
+                label={t("cancel")}
                 variant="outlined"
                 color="cancle"
                 datacy="cancel-book-btn"
@@ -67,7 +70,7 @@ function Dialog({
 
               <Button
                 onClick={submitHandler}
-                label={"Confirm"}
+                label={t("confirm")}
                 variant="contained"
                 color="confirm"
                 datacy="confirm-book-btn"

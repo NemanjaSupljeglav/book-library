@@ -102,8 +102,8 @@ function Category() {
           autoFocus
           margin="dense"
           id="name"
-          name={"Category name"}
-          placeholder="Category name"
+          name={t("category-name")}
+          placeholder={t("category-name")}
           type="text"
           variant="standard"
           defaultValue={name}

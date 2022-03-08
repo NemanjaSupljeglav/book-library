@@ -156,7 +156,7 @@ function Book() {
         customBodyRenderLite: (dataIndex) => {
           return (
             <>
-              {bookData[dataIndex] && (
+              {bookData[dataIndex].is_published ? (
                 <Tooltip
                   title="Edit"
                   onClick={() => {
@@ -164,6 +164,16 @@ function Book() {
                     setBookId(bookData[dataIndex].uuid);
                     setOpen(true);
                   }}
+                  className="edit-icon"
+                  datacy="edit-book-test"
+                >
+                  <IconButton>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <Tooltip
+                  title={t("cant-edit")}
                   className="edit-icon"
                   datacy="edit-book-test"
                 >

@@ -25,9 +25,12 @@
   "delete-category": "Brisanje kategorije",
   "author-name": "Ime autora",
   "delete-author-question": "Da li ste sigurni da želite izbrisati autora?",
-  "add-new-author": "Dodavanje novog autora",
+  "add-new-author": "Dodavanje autora",
   "describe": "Opis",
-  "delete-category-question": "Da li ste sigurni da želite izbrisati ovu kateogriju?",
-  "add-new-category": "Dodavanje nove kategorije",
-  "welcome-p": "Učanjivanje u biblioteku vrši se svake kalendarske godine. Prilikom upisa budući korisnik je dužan da radniku Biblioteke da tačne podatke o sebi. Korisnik pri upisu dobija člansku kartu na osnovu koje pozajmljuje knjigu i koristi druge usluge Biblioteke. Ukoliko izgubi člansku kartu dužan je platiti posebnu nadoknadu za izdavanje duplikata. Član Biblioteke je dužan da prilikom upisa plati godišnji iznos članarine. Čitaoci koji duguju knjige iz prethodnog perioda ne mogu biti upisani u Biblioteku dok ne izmire obaveze prema Biblioteci vraćanjem pozajmljene knjige. Čitalac ima pravo da uzme na čitanje dvije knjige (od toga samo jedna lektira). Djela predviđena programom lektire ne mogu se zadržavati duže od 15 dana, a ostale knjige do 30 dana. Za pojedine knjige bibliotekar može odrediti i kraći rok od 15 dana, što je u interesu i čitalaca i biblioteke."
+  "delete-category-question": "Da li ste sigurni da želite izbrisati kateogriju?",
+  "add-new-category": "Dodavanje kategorije",
+  "welcome-p": "Učanjivanje u biblioteku vrši se svake kalendarske godine. Prilikom upisa budući korisnik je dužan da radniku Biblioteke da tačne podatke o sebi. Korisnik pri upisu dobija člansku kartu na osnovu koje pozajmljuje knjigu i koristi druge usluge Biblioteke. Ukoliko izgubi člansku kartu dužan je platiti posebnu nadoknadu za izdavanje duplikata. Član Biblioteke je dužan da prilikom upisa plati godišnji iznos članarine. Čitaoci koji duguju knjige iz prethodnog perioda ne mogu biti upisani u Biblioteku dok ne izmire obaveze prema Biblioteci vraćanjem pozajmljene knjige. Čitalac ima pravo da uzme na čitanje dvije knjige (od toga samo jedna lektira). Djela predviđena programom lektire ne mogu se zadržavati duže od 15 dana, a ostale knjige do 30 dana. Za pojedine knjige bibliotekar može odrediti i kraći rok od 15 dana, što je u interesu i čitalaca i biblioteke.",
+  "category-name": "Ime kategorije",
+  "description": "Opis",
+  "cant-edit": "Ne može se editovati neaktivna knjiga!"
 }
